@@ -1,0 +1,66 @@
+{
+    "types":[
+        {
+            "value":"Soporte",
+            "name":"Soporte"
+        },
+        {
+            "value":"Implementación",
+            "name":"Implementación"
+        },
+        {
+            "value":"B&P",
+            "name":"B&P"
+        }
+    ],
+    "status":[
+        {
+            "value":"Propuesta",
+            "name":"Propuesta"
+        },
+        {
+            "value":"On Going",
+            "name":"On Going"
+        }
+    ],
+    "components":[
+        {
+            "value":"ERP",
+            "name":"ERP"
+        },
+        {
+            "value":"ISH",
+            "name":"ISH"
+        },
+        {
+            "value":"HANA",
+            "name":"HANA"
+        },
+        {
+            "value":"MDG",
+            "name":"MDG"
+        },
+        {
+            "value":"ERP-ISH",
+            "name":"ERP-ISH"
+        },
+        {
+            "value":"ERP-HANA",
+            "name":"ERP-HANA"
+        },
+        {
+            "value":"ERP-IS-OIL",
+            "name":"ERP-IS-OIL"
+        }
+    ],
+    "currency":[
+        {
+            "value":"COP",
+            "name":"COP - Pesos Colombianos"
+        },
+        {
+            "value":"USD",
+            "name":"USD - Dolar Americano"
+        }
+    ]
+}

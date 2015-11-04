@@ -1,0 +1,141 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Creación
+      <small> de proyecto</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="#/"><i class="fa fa-edit"></i> Administración</a></li>
+      <li><a href="#/project-list">Proyectos</a></li>
+      <li class="active">Creación</a></li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <form ng-submit="save()">
+      <div class="box box-primary">
+          <div class="box-header with-border">
+            Información general
+            <div class="pull-right">
+              <a type="button" href="#/project-list/" class="btn btn-danger "><i class="fa fa-times"></i></a>
+              <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i></button>
+            </div>
+          </div>
+          <div class="box-body">
+              <div class="avatar form-group col-md-12 text-center">
+                <div class="picture avatar-md text-center">
+                  <img  id="avatar" name="avatar" class="picture-src"/>
+                  <input class="input-img" type="file" name="logo" id="logo" onchange="angular.element(this).scope().getAvatar(this)" accept="image/*" required>
+                </div>
+                <h6>Avatar de proyecto</h6>
+              </div>
+            <div class="form-group col-md-6">
+              <label>Código</label>
+              <input type="text" ng-model="data.id" class="form-control"placeholder="Ingrese el WI del proyecto" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label>Nombre del proyecto</label>
+              <input type="text"ng-model="data.name" class="form-control"placeholder="Ingrese el nombre del proyecto" required>
+            </div>
+            <div class="form-group col-md-12">
+              <label>Descripción</label>
+              <textarea type="text" ng-model="data.desc" rows="4" class="form-control" placeholder="Ingrese la descripción del proyecto" required></textarea>
+            </div>
+            <div class="form-group col-md-6">
+              <label>Tipo de proyecto</label>
+              <select class="form-control" ng-model="data.type">
+                <option value="">---</option>
+                <option ng-repeat="type in types" value="{{type.value}}">{{type.name}}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-6">
+              <label>Estado</label>
+              <select class="form-control" ng-model="data.status">
+                <option value="">---</option>
+                <option ng-repeat="statu in status" value="{{statu.value}}">{{statu.name}}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-6">
+              <label>Componente</label>
+              <select class="form-control" ng-model="data.compo">
+                <option value="">---</option>
+                <option ng-repeat="component in components" value="{{component.value}}">{{component.name}}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-6">
+              <label>Moneda</label>
+              <select class="form-control" ng-model="data.current">
+                <option value="">---</option>
+                <option ng-repeat="curr in currency" value="{{curr.value}}">{{curr.name}}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-6">
+              <label>Fecha de inicio</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
+                </div>
+                <input type="text" ng-model="data.init" class="form-control dateinput" placeholder="Ingrese la fecha de inicio del proyecto" required>
+              </div><!-- /.input group -->
+            </div>
+            <div class="form-group col-md-6">
+              <label>Fecha de finalización</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
+                </div>
+                <input type="text" ng-model="data.end" class="form-control dateinput" placeholder="Ingrese la fecha de finalización del proyecto" required>
+              </div><!-- /.input group -->
+            </div>
+            <div class="form-group col-md-6">
+              <label>Ubicación</label>
+              <input type="text"ng-model="data.locale" class="form-control"placeholder="Ingrese la ubicación del proyecto" required>
+            </div>
+
+
+          </div>
+      </div>
+      <div class="box box-primary">
+          <div class="box-header with-border">
+            Miembros del equipo
+            <div class="box-tools pull-right">
+              <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div><!-- /.box-tools -->
+          </div>
+          <div class="box-body">
+
+
+
+            <div class="col-md-3" ng-repeat="i in [1,2,3,4,5]">
+              <!-- Widget: user widget style 1 -->
+              <div class="box box-widget widget-user-2">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-blue">
+                  <div class="widget-user-image">
+                    <img class="img-circle" src="vendors/lte/dist/img/photo.jpg" alt="User Avatar">
+                  </div><!-- /.widget-user-image -->
+                  <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool btn-white" ><i class="fa fa-times"></i></button>
+                  </div><!-- /.box-tools -->
+                  <h3 class="widget-user-username">Sergio Mesa Londoño</h3>
+                  <h5 class="widget-user-desc">Lead Developer</h5>
+                </div>
+                <div class="box-footer no-padding">
+                  <ul class="nav nav-stacked">
+                    <li><a href="#">Proyectos <span class="pull-right badge bg-blue">31</span></a></li>
+                    <li><a href="#">Equipos <span class="pull-right badge bg-aqua">5</span></a></li>
+                    <li><a href="#">Tareas<span class="pull-right badge bg-green">12</span></a></li>
+                  </ul>
+                </div>
+              </div><!-- /.widget-user -->
+            </div>
+          </div>
+      </div>
+
+    </form>
+
+  </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
