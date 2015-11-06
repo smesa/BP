@@ -76,4 +76,7 @@ angular
   		    clear: "Borrar"
   	};
 
+    Parse.$ = jQuery;
+    Parse.initialize("DSu330p71uFN7KqT8Yt0lEVOGgo4y7UfglUDQ0G8", "IpDMFH3UMGACj7jfY2xetR7JOtSPPj9BTkt64BWb");
+
   });
