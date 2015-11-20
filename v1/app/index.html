@@ -21,23 +21,28 @@
 
     <!-- Theme style -->
     <link rel="stylesheet" href="vendors/lte/dist/css/AdminLTE.css">
-    <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
-          page. However, you can choose any other skin. Make sure you
-          apply the skin class to the body tag so the changes take effect.
-    -->
     <link rel="stylesheet" href="vendors/lte/dist/css/skins/skin-blue.min.css">
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+    <link rel="stylesheet" href="vendors/logon/css/form-elements.css">
+    <link rel="stylesheet" href="vendors/logon/css/style.css">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="vendors/logon/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="vendors/logon/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"   href="vendors/logon/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="vendors/logon/ico/apple-touch-icon-57-precomposed.png">
+
 
 
     <!-- endbuild -->
   </head>
 
-  <body ng-app="basekampApp" class="hold-transition skin-blue sidebar-mini">
-    <!--[if lte IE 8]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+  <body ng-app="basekampApp" class="hold-transition skin-blue sidebar-mini" ng-controller="IndexCtrl">
 
+    <div class="container" ng-show="isLogon">
+      <login></login>
+    </div>
 
-    <div class="wrapper">
+    <div class="wrapper" ng-hide="isLogon">
 
       <!-- Main Header -->
       <header class="main-header">
@@ -156,16 +161,16 @@
                   <!-- The user image in the navbar-->
                   <img src="vendors/lte/dist/img/photo.jpg" class="user-image" alt="User Image">
                   <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                  <span class="hidden-xs">Sergio Mesa Londoño</span>
+                  <span class="hidden-xs">{{data.name}} {{data.lastname}}</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- The user image in the menu -->
                   <li class="user-header">
                     <img src="vendors/lte/dist/img/photo.jpg" class="img-circle" alt="User Image">
                     <p>
-                      Sergio Mesa Londoño
-                      <br>Consultor SAP ABAP
-                      <small>Miembro desde Feb.2015</small>
+                      {{data.name}} {{data.lastname}}
+                      <br>{{data.role}}
+                      <small>Miembro desde {{data.contract}}</small>
                       <br>
                     </p>
                   </li>
@@ -187,7 +192,7 @@
                       <a href="" class="btn btn-default btn-flat">Perfil</a>
                     </div>
                     <div class="pull-right">
-                      <a href="" class="btn btn-default btn-flat">Cerrar</a>
+                      <a href="" ng-click="logoff()" class="btn btn-default btn-flat">Cerrar</a>
                     </div>
                   </li>
                 </ul>
@@ -331,15 +336,20 @@
     <script src="bower/angular-smart-table/dist/smart-table.js"></script>
     <script src="bower/angular-local-storage/dist/angular-local-storage.min.js"></script>
     <script src="bower/bootbox.js/bootbox.js"></script>
+    <script src="vendors/lte/dist/js/app.min.js"></script>
+    <script src="bower/angular-bootstrap/ui-bootstrap.js"></script>
+    <script src="bower/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.js"></script>
+    <script src="//www.parsecdn.com/js/parse-1.6.7.min.js"></script>
+    <script src="vendors/logon/js/jquery.backstretch.min.js"></script>
+    <script src="vendors/logon/js/scripts.js"></script>
 
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="vendors/lte/dist/js/app.min.js"></script>
-    	  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.js"></script>
-        <script src="http://www.parsecdn.com/js/parse-latest.js"></script>
         <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/index.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/user-list.js"></script>
         <script src="scripts/controllers/user-create.js"></script>
@@ -347,10 +357,12 @@
         <script src="scripts/controllers/project-list.js"></script>
         <script src="scripts/controllers/project-create.js"></script>
         <script src="scripts/controllers/project-edit.js"></script>
+        <script src="scripts/directives/login.js"></script>
         <script src="scripts/directives/mainmenu.js"></script>
         <script src="scripts/services/users-services.js"></script>
         <script src="scripts/services/projs-services.js"></script>
         <script src="scripts/services/utils-services.js"></script>
+        <script src="scripts/services/parse-utils.js"></script>
         <!-- endbuild -->
 </body>
 </html>

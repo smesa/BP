@@ -1,4 +1,3 @@
-'use strict';
 
 /**
  * @ngdoc service
@@ -8,142 +7,255 @@
  * Factory in the basekampApp.
  */
 angular.module('basekampApp')
-  .factory('usersServices', function ($http, $q) {
+  .factory('usersServices', function ($http, $q, $rootScope) {
 
-    var sURL  = 'http://colhealthcare.softlayer.com:8000/sap/bc/ibmbasekamp/services';
 
     function userList(){
 
       var deferred = $q.defer();
-      var req = { method: 'GET', url: sURL, params : { 'option': 'user_list' } };
 
-      $http(req).then(function(response){
-        return deferred.resolve(response.data);
-      }, function(err){
-        console.log("Ocurrio el siguiente error: " + err);
-        return deferred.reject(err);
+      var UserInfo = Parse.Object.extend("UserInfo");
+      var query    = new Parse.Query(UserInfo);
+      query.find({
+        success: function(data) {
+          data = JSON.parse(JSON.stringify(data))
+          return deferred.resolve(data);
+        },
+        error: function(error){
+          console.log("Ocurrio el siguiente error: " + error);
+          return deferred.reject(error);
+        }
       });
-
       return deferred.promise;
 
     };
 
     function userData(user_id){
 
-      var deferred = $q.defer();
-      var req = { method: 'GET', url: sURL, params : { 'option': 'user_data', 'user_id': user_id } };
+      var deferred      = $q.defer();
+      var UserInfo      = Parse.Object.extend("UserInfo");
+      var UserEdu       = Parse.Object.extend("UserEdu");
+      var queryUserInfo = new Parse.Query(UserInfo);
+      var queryUserEdu  = new Parse.Query(UserEdu);
 
-      $http(req).then(function(response){
-        return deferred.resolve(response.data);
-      }, function(err){
-        console.log("Ocurrio el siguiente error: " + err);
-        return deferred.reject(err);
-      });
+      queryUserInfo.equalTo("username",user_id);
+      queryUserEdu.equalTo("username",user_id);
 
-      return deferred.promise;
 
-    };
+      queryUserInfo.find({
+        success: function(userinfo) {
+          queryUserEdu.find({
+            success: function(useredu) {
+              var data = {};
+              data.userinfo = {};
+              data.userinfo.attributes = {};
+              data.userinfo.attributes = JSON.parse(JSON.stringify(userinfo[0]));
+              data.useredu  = useredu;
+              return deferred.resolve(data);
+            }
+          });
 
-    function userEducation(user_id){
-
-      var deferred = $q.defer();
-      var req = { method: 'GET', url: sURL, params : { 'option': 'user_edu', 'user_id': user_id } };
-
-      $http(req).then(function(response){
-        return deferred.resolve(response.data);
-      }, function(err){
-        console.log("Ocurrio el siguiente error: " + err);
-        return deferred.reject(err);
-      });
-
-      return deferred.promise;
-
-    };
-
-    function userCreate(oParameters){
-
-      var deferred = $q.defer();
-      var education = '';
-      var count = 0;
-      var sType = 'POST';
-
-      angular.forEach(oParameters.education, function(value){
-        count = count + 1;
-        education = education + "{" + count + "," + value.cursetype + ',' + value.cursetitle + ',' + value.cursecertificateid + ',' + value.cursedate + '};';
-      })
-
-      oParameters.education = education;
-
-      jQuery.ajax({
-        url: sURL,
-        async: true,
-        dataType: 'json',
-        data: oParameters,
-        type: sType,
-        success: function(oData) {
-          return deferred.resolve(oData[0]);
         },
-        error: function(XMLHttpRequest, textStatus, errorThrown){
-          console.log("Ocurrio el siguiente error: " + textStatus, XMLHttpRequest.responseText + ","	+ XMLHttpRequest.status + "," + XMLHttpRequest.statusText);
-          return deferred.reject(err);
+        error: function(error){
+          console.log("Ocurrio el siguiente error: " + error);
+          return deferred.reject(error);
         }
       });
 
       return deferred.promise;
+
     };
 
-    function userUpdate(oParameters){
+
+    function userCreate(oParameters, oEmail, oEdu){
 
       var deferred = $q.defer();
-      var sType = 'POST';
-      var education = '';
-      var count = 0;
-      oParameters.method = 'PUT';
-      oParameters.option = 'user_update';
+      var sessionToken = Parse.User.current().getSessionToken();
 
-      angular.forEach(oParameters.education, function(value){
-        count = count + 1;
-        education = education + "{" + count + "," + value.cursetype + ',' + value.cursetitle + ',' + value.cursecertificateid + ',' + value.cursedate + '};';
+      if(oParameters.avatar.length > 0){
+
+        var parseFile = new Parse.File("avatar", { base64: oParameters.avatar });
+
+        parseFile.save().then(function() {
+
+          oParameters.avatar = parseFile;
+          saveParse(oParameters,oEmail,oEdu).then(function(){
+                Parse.User.become(sessionToken);
+                return deferred.resolve()
+          });
+        }, function(error) {
+              return deferred.reject(error);
+        });
+
+      }else{
+        saveParse(oParameters,oEmail,oEdu).then(function(){
+              return deferred.resolve()
+        });
+      }
+
+      return deferred.promise;
+    };
+
+    function saveParse(oParameters,oEmail,oEdu){
+
+      var deferred   = $q.defer();
+      var newParse   = new Parse.User();
+      var userEdu    = Parse.Object.extend("UserEdu");
+      var userInfo   = Parse.Object.extend("UserInfo");
+      var ArrEdu     = [];
+
+      var newUserInfo = new userInfo();
+      newUserInfo.set(oParameters)
+
+      angular.forEach(oEdu, function(value){
+          var newUserEdu = new userEdu();
+          value.username = oParameters.username;
+          newUserEdu.set(value);
+          ArrEdu.push(newUserEdu)
       })
 
-      oParameters.education = education;
+      newParse.set('username',oParameters.username);
+      newParse.set('password','init123');
+      newParse.set('email',oEmail);
 
-      jQuery.ajax({
-        url: sURL,
-        async: true,
-        dataType: 'json',
-        data: oParameters,
-        type: sType,
-        success: function(oData) {
-          return deferred.resolve(oData[0]);
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown){
-          console.log("Ocurrio el siguiente error: " + textStatus, XMLHttpRequest.responseText + ","	+ XMLHttpRequest.status + "," + XMLHttpRequest.statusText);
+      newParse.signUp(null,{
+        success: function(res){
+          newUserInfo.save()
+          Parse.Object.saveAll(ArrEdu);
+          return deferred.resolve();
 
-        }
-      });
+      },error: function(user,error){
+        alert("Error: " + error.code + " " + error.message);
+        return deferred.reject(error);
+      }})
+
+      return deferred.promise;
+
+    }
+
+
+    function userUpdate(info,edu){
+
+      var deferred      = $q.defer();
+      var UserInfo      = Parse.Object.extend("UserInfo");
+      var UserEdu       = Parse.Object.extend("UserEdu");
+      var queryUserInfo = new Parse.Query(UserInfo);
+      var queryUserEdu  = new Parse.Query(UserEdu);
+      var ArrEdu        = [];
+
+
+      queryUserInfo.equalTo("username",info.attributes.username);
+      queryUserEdu.equalTo("username",info.attributes.username);
+
+      if(info.attributes.avatar.length > 0){
+
+        var parseFile = new Parse.File("avatar", { base64: info.attributes.avatar });
+
+        parseFile.save().then(function() {
+
+          info.attributes.avatar = parseFile;
+
+          queryUserInfo.find({
+            success: function(userinfo) {
+              if (userinfo.length > 0){
+                userinfo[0].set(info.attributes);
+                userinfo[0].save();
+              }
+            }
+          });
+
+          queryUserEdu.find({
+            success: function(useredu) {
+
+              angular.forEach(useredu, function(value){
+                value.destroy();
+              })
+
+              angular.forEach(edu, function(value){
+                  var newUserEdu = new UserEdu();
+                  value.attributes.username = info.attributes.username;
+                  newUserEdu.set(value.attributes);
+                  ArrEdu.push(newUserEdu)
+              })
+
+              Parse.Object.saveAll(ArrEdu);
+              return deferred.resolve();
+            },
+            error: function(){
+              return deferred.resolve();
+            }
+          });
+
+        });
+      }else{
+
+        queryUserInfo.find({
+          success: function(userinfo) {
+            if (userinfo.length > 0){
+              userinfo[0].set(info.attributes);
+              userinfo[0].save();
+            }
+          }
+        });
+
+        queryUserEdu.find({
+          success: function(useredu) {
+
+            angular.forEach(useredu, function(value){
+              value.destroy();
+            })
+
+            angular.forEach(edu, function(value){
+                var newUserEdu = new UserEdu();
+                value.attributes.username = info.attributes.username;
+                newUserEdu.set(value.attributes);
+                ArrEdu.push(newUserEdu)
+            })
+
+            Parse.Object.saveAll(ArrEdu);
+            return deferred.resolve();
+          },
+          error: function(){
+            return deferred.resolve();
+          }
+        });
+
+      }
 
       return deferred.promise;
     }
 
-    function userDelete(oParameters){
 
-      var deferred = $q.defer();
+    function userDelete(user_id){
 
-      var sType = 'GET';
+      var deferred      = $q.defer();
+      var UserInfo      = Parse.Object.extend("UserInfo");
+      var UserEdu       = Parse.Object.extend("UserEdu");
+      var queryUserInfo = new Parse.Query(UserInfo);
+      var queryUserEdu  = new Parse.Query(UserEdu);
 
-      jQuery.ajax({
-        url: sURL,
-        async: true,
-        dataType: 'json',
-        data: oParameters,
-        type: sType,
-        success: function(oData) {
-          return deferred.resolve(oData[0]);
+
+      queryUserInfo.equalTo("username",user_id);
+      queryUserEdu.equalTo("username",user_id);
+
+
+      queryUserInfo.find({
+        success: function(userinfo) {
+          if (userinfo.length > 0){
+            userinfo[0].destroy();
+          }
+        }
+      });
+
+      queryUserEdu.find({
+        success: function(useredu) {
+          angular.forEach(useredu, function(value){
+            value.destroy();
+          })
+          return deferred.resolve();
         },
-        error: function(XMLHttpRequest, textStatus, errorThrown){
-          console.log("Ocurrio el siguiente error: " + textStatus, XMLHttpRequest.responseText + ","	+ XMLHttpRequest.status + "," + XMLHttpRequest.statusText);
-          return deferred.reject(err);
+        error: function(){
+          return deferred.resolve();
         }
       });
 
@@ -153,7 +265,6 @@ angular.module('basekampApp')
     return {
       userList:userList,
       userData:userData,
-      userEducation:userEducation,
       userCreate:userCreate,
       userUpdate:userUpdate,
       userDelete:userDelete

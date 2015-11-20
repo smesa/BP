@@ -25,26 +25,16 @@ angular.module('basekampApp')
       location.href = '#/user-edit/'+userid;
     };
 
-    $scope.deleteUser = function(index){
+    $scope.deleteUser = function(index,username){
 
       bootbox.confirm("Esta seguro de eliminar el usuario?", function(result) {
 
          if(result == true){
 
-           var data = { 'option': 'user_delete', 'method' : 'DELETE', 'userid' : $scope.rowCollection[index].userid }
-
-           usersServices.userDelete(data).then(function(data){
+           usersServices.userDelete(username).then(function(data){
              // Extraigo el mensaje
-             $rootScope.message = data.message;
-
-             bootbox.alert($rootScope.message , function() {});
-
-             // Muestro el modal resultante
-             switch (data.type) {
-               case 'S':
-                 $scope.rowCollection.splice(index, 1);
-                 break;
-             }
+             $scope.rowCollection.splice(index, 1);
+             bootbox.alert('Usuario eliminado' , function() {});
 
            });
          }

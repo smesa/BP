@@ -10,34 +10,28 @@
 angular.module('basekampApp')
   .controller('UserCreateCtrl', function ($scope,$rootScope,localStorageService,usersServices) {
 
-      $scope.data = { 'option': 'user_create', 'id' : '', 'doc' : '', 'name' : '', 'lastname' : '', 'birth' : '', 'contract' : '', 'country' : '', 'city' : '', 'phoneibm' : '',
-        'phoneperson' : '', 'mailibm' : '', 'mailperson' : '', 'skype' : '', 'extibm' : '', 'company' : '', 'area' : '', 'typemachine' : '', 'serialmachine' : '',
+      $scope.data = { 'username' : '', 'email' : '', 'name' : '', 'lastname' : '', 'birth' : '', 'contract' : '', 'country' : '', 'city' : '', 'phoneibm' : '',
+        'phoneperson' : '', 'mailperson' : '', 'skype' : '', 'extibm' : '', 'company' : '', 'area' : '', 'typemachine' : '', 'serialmachine' : '',
         'atyt' : '', 'conference' : '', 'card' : '', 'claim' : '', 'amex' : '', 'locker' : '', 'hourplan' : '', 'conductcourse' : '', 'hv' : '', 'hvdate' : '',
-        'avatar' : '', 'pass' : '' }
+        'avatar' : '', "active": "true" }
 
 
       $scope.countries  = localStorageService.get('countries');
       $scope.cities     = localStorageService.get('cities');
 
       $scope.education = [];
+      $scope.email = "";
       $scope.curso = [];
 
 
       // Funcion para guardar
       $scope.save = function(){
 
-        $scope.data.education = $scope.education;
-        usersServices.userCreate($scope.data).then(function(data){
-          // Extraigo el mensaje
-          $rootScope.message = data.message;
-          bootbox.alert($rootScope.message , function() {});
+        $scope.data.email = $scope.email
+        usersServices.userCreate($scope.data, $scope.data.email, $scope.education).then(function(data){
+          bootbox.alert('Usuario creado con exito' , function() {});
+          location.href = '#/user-list/';
 
-          // Muestro el modal resultante
-          switch (data.type) {
-            case 'S':
-              location.href = '#/user-list/';
-              break;
-          }
         });
       }
 

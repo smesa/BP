@@ -16,35 +16,14 @@ angular.module('basekampApp')
     $scope.cities     = localStorageService.get('cities');
 
     $scope.data = [];
-    $scope.education = [];
+    $scope.useredu = [];
     $scope.curso = [];
 
     // Consulto usuarios
     usersServices.userData(user_id).then(function(data){
-
-      switch (data[0].type) {
-        case 'E':
-          // Extraigo el mensaje
-          $rootScope.message = data.message;
-          // Muestro el modal resultante
-          bootbox.alert(data[0].message , function() {});
-
-          location.href = '#/user-list/';
-          break;
-
-        default:
-          $scope.data = data[0];
-          $('#avatar').attr('src', data[0].avatar);
-          break;
-      }
-
-    });
-
-    // Consulto usuarios
-    usersServices.userEducation(user_id).then(function(data){
-          if(data.length > 0){
-            $scope.education = data;            
-          }
+          $scope.userinfo = data.userinfo;
+          $scope.useredu  = data.useredu;
+          $('#avatar').attr('src', $scope.userinfo.attributes.avatar._url);
     });
 
     // Funcion para guardar
@@ -53,19 +32,9 @@ angular.module('basekampApp')
 
       bootbox.confirm("Esta seguro de guardar estos cambios?", function(result) {
          if(result == true){
-
-            $scope.data.education = $scope.education
-            usersServices.userUpdate($scope.data).then(function(data){
-              // Extraigo el mensaje
-              $rootScope.message = data.message;
-              bootbox.alert($rootScope.message , function() {});
-
-              // Muestro el modal resultante
-              switch (data.type) {
-                case 'S':
-                  location.href = '#/user-list/';
-                  break;
-              }
+            usersServices.userUpdate($scope.userinfo,$scope.useredu).then(function(data){
+              bootbox.alert('Datos de usuario guardados' , function() {});
+              location.href = '#/user-list/';
             });
          }
       });
@@ -77,9 +46,10 @@ angular.module('basekampApp')
     }
 
     $scope.addCurse = function(){
-      var values = $scope.curso;
+      var values = {};
+      values.attributes =  $scope.curso;
       $scope.curso = [];
-      $scope.education.push(values);
+      $scope.useredu.push(values);
       $('#educationModal').modal('hide');
     }
 
@@ -87,7 +57,7 @@ angular.module('basekampApp')
 
       bootbox.confirm("Esta seguro de eliminar el curso?", function(result) {
          if(result == true){
-            $scope.education.splice(index,1);
+            $scope.useredu.splice(index,1);
             $scope.$apply();
          }
       });
@@ -102,7 +72,7 @@ angular.module('basekampApp')
       // Registro el evento onload
       reader.onload = function (loadEvent) {
         // Muevo el valor de la imagen en base 64
-        $scope.data.avatar = loadEvent.target.result;
+        $scope.userinfo.attributes.avatar = loadEvent.target.result;
         // Actualizo el logo
         $('#avatar').attr('src', loadEvent.target.result);
       };

@@ -34,11 +34,16 @@
               </div>
             <div class="form-group col-md-6">
               <label>Nro. Empleado</label>
-              <input type="text" ng-model="data.id" class="form-control"placeholder="Ingrese el id de empleado IBM" required>
+              <input type="text" ng-model="data.username" class="form-control"placeholder="Ingrese el id de empleado IBM" required>
             </div>
             <div class="form-group col-md-6">
-              <label>Cedula de ciudadania</label>
-              <input type="text"ng-model="data.doc" class="form-control"placeholder="Ingrese la cédula del empleado IBM" required>
+              <label>Correo electronico IBM</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-envelope-o"></i>
+                </div>
+                <input type="email" ng-model="email" class="form-control" placeholder="Ingrese el correo electronico de IBM" required>
+              </div><!-- /.input group -->
             </div>
             <div class="form-group col-md-6">
               <label>Nombres</label>
@@ -70,14 +75,14 @@
               <label>País</label>
               <select class="form-control" ng-model="data.country" required>
                 <option value="">---</option>
-                <option ng-repeat="country in countries" value="{{country.land1}}">{{country.landx}}</option>
+                <option ng-repeat="country in countries" value="{{country.code}}">{{country.name}}</option>
               </select>
             </div>
             <div class="form-group col-md-6">
               <label>Ciudad</label>
               <select class="form-control" ng-model="data.city" required>
                 <option value="">---</option>
-                <option ng-repeat="city in cities" value="{{city.city_code}}">{{city.city_name}}</option>
+                <option ng-repeat="city in cities" value="{{city.code}}">{{city.name}}</option>
               </select>
             </div>
           </div>
@@ -106,16 +111,6 @@
                   <i class="fa fa-phone"></i>
                 </div>
                 <input type="text" ng-model="data.phoneperson" class="form-control" placeholder="Ingrese teléfono móvil personal">
-              </div><!-- /.input group -->
-            </div>
-
-            <div class="form-group col-md-6">
-              <label>Correo electronico IBM</label>
-              <div class="input-group">
-                <div class="input-group-addon">
-                  <i class="fa fa-envelope-o"></i>
-                </div>
-                <input type="email" ng-model="data.mailibm" class="form-control" placeholder="Ingrese el correo electronico de IBM">
               </div><!-- /.input group -->
             </div>
 

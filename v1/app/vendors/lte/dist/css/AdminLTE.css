@@ -1619,7 +1619,7 @@ a:focus {
   overflow: auto;
 }
 .box .border-right {
-  border-right: 1px solid #f4f4f4;
+  border-right: 1px solid #DCD5D5;
 }
 .box .border-left {
   border-left: 1px solid #f4f4f4;
@@ -3057,13 +3057,14 @@ table.text-center th {
 }
 .widget-user .widget-user-image {
   position: absolute;
-  top: 65px;
-  left: 50%;
-  margin-left: -45px;
+    top: 75px;
+    left: 50%;
+    margin-left: -45px;
+    z-index: 999;
 }
 .widget-user .widget-user-image > img {
   width: 90px;
-  height: auto;
+  height: 90px;
   border: 3px solid #fff;
 }
 .widget-user .box-footer {

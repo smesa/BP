@@ -13,7 +13,8 @@ angular
     'ngResource',
     'ngRoute',
     'smart-table',
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'ui.bootstrap'
   ])
   .config(function ($routeProvider,localStorageServiceProvider) {
     $routeProvider
@@ -77,6 +78,6 @@ angular
   	};
 
     Parse.$ = jQuery;
-    Parse.initialize("DSu330p71uFN7KqT8Yt0lEVOGgo4y7UfglUDQ0G8", "IpDMFH3UMGACj7jfY2xetR7JOtSPPj9BTkt64BWb");
+    Parse.initialize("azXqupSuOSFLFgVnelWhl6x44rtScVwwvEg9Gh5c", "U4ACfj9UzW1tV8b1OxpBSmOcMntVN8YsAju6ORIg");
 
   });

@@ -16,140 +16,307 @@
   <!-- Main content -->
   <section class="content">
     <form ng-submit="save()">
-      <div class="box box-primary">
-          <div class="box-header with-border">
-            Información general
-            <div class="pull-right">
-              <a type="button" href="#/project-list/" class="btn btn-danger "><i class="fa fa-times"></i></a>
-              <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i></button>
-            </div>
-          </div>
-          <div class="box-body">
-              <div class="avatar form-group col-md-12 text-center">
-                <div class="picture avatar-md text-center">
-                  <img  ng-src="{{data.avatar}}" id="avatar" name="avatar" class="picture-src"/>
-                  <input class="input-img" type="file" name="logo" id="logo" onchange="angular.element(this).scope().getAvatar(this)" accept="image/*">
+      <uib-tabset>
+        <uib-tab heading="Información">
+          <div class="box box-primary">
+              <br>
+              <div class="box-header with-border">
+                <div class="pull-right">
+                  <a type="button" href="#/project-list/" class="btn btn-danger "><i class="fa fa-times"></i></a>
+                  <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i></button>
                 </div>
-                <h6>Avatar de proyecto</h6>
               </div>
-            <div class="form-group col-md-6">
-              <label>Código</label>
-              <input type="text" ng-model="data.id" class="form-control"placeholder="Ingrese el WI del proyecto" required readonly>
-            </div>
-            <div class="form-group col-md-6">
-              <label>Nombre del proyecto</label>
-              <input type="text"ng-model="data.name" class="form-control"placeholder="Ingrese el nombre del proyecto" required>
-            </div>
-            <div class="form-group col-md-12">
-              <label>Descripción</label>
-              <textarea type="text" ng-model="data.desc" rows="4" class="form-control" placeholder="Ingrese la descripción del proyecto" required></textarea>
-            </div>
-            <div class="form-group col-md-6">
-              <label>Tipo de proyecto</label>
-              <select class="form-control" ng-model="data.type">
-                <option value="">---</option>
-                <option ng-repeat="type in types" value="{{type.value}}">{{type.name}}</option>
-              </select>
-            </div>
-            <div class="form-group col-md-6">
-              <label>Estado</label>
-              <select class="form-control" ng-model="data.status">
-                <option value="">---</option>
-                <option ng-repeat="statu in status" value="{{statu.value}}">{{statu.name}}</option>
-              </select>
-            </div>
-            <div class="form-group col-md-6">
-              <label>Componente</label>
-              <select class="form-control" ng-model="data.compo">
-                <option value="">---</option>
-                <option ng-repeat="component in components" value="{{component.value}}">{{component.name}}</option>
-              </select>
-            </div>
-            <div class="form-group col-md-6">
-              <label>Moneda</label>
-              <select class="form-control" ng-model="data.current">
-                <option value="">---</option>
-                <option ng-repeat="curr in currency" value="{{curr.value}}">{{curr.name}}</option>
-              </select>
-            </div>
-            <div class="form-group col-md-6">
-              <label>Fecha de inicio</label>
-              <div class="input-group">
-                <div class="input-group-addon">
-                  <i class="fa fa-calendar"></i>
-                </div>
-                <input type="text" ng-model="data.init" class="form-control dateinput" placeholder="Ingrese la fecha de inicio del proyecto" required>
-              </div><!-- /.input group -->
-            </div>
-            <div class="form-group col-md-6">
-              <label>Fecha de finalización</label>
-              <div class="input-group">
-                <div class="input-group-addon">
-                  <i class="fa fa-calendar"></i>
-                </div>
-                <input type="text" ng-model="data.end" class="form-control dateinput" placeholder="Ingrese la fecha de finalización del proyecto" required>
-              </div><!-- /.input group -->
-            </div>
-            <div class="form-group col-md-6">
-              <label>Ubicación</label>
-              <input type="text"ng-model="data.locale" class="form-control"placeholder="Ingrese la ubicación del proyecto" required>
-            </div>
-
-
-          </div>
-      </div>
-      <div class="box box-primary">
-          <div class="box-header with-border">
-            Miembros del equipo
-            <div class="box-tools pull-right">
-              <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            </div><!-- /.box-tools -->
-          </div>
-          <div class="box-body">
-            <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped table-bordered" cellspacing="0" width="100%">
-        			<thead>
-              <tr>
-                <th colspan="4"></th>
-                <th colspan="1" class="text-center">
-                  <button type="button" ng-click="createUser()" class="btn btn-primary">
-                    <i class="fa fa-plus"></i>
-                  </button></th>
-          		</tr>
-        			<tr>
-                <th>Tipo de curso</th>
-        				<th>Titulo obtenido</th>
-        				<th>Id de titulo</th>
-                <th>Fecha</th>
-                <th></th>
-        			</tr>
-
-        			</thead>
-        			<tbody>
-        			<tr ng-repeat="row in  rowCollection">
-        				<td class="text-center">
-                  <div class="image">
-                    <img src="vendors/lte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" style=" width: 50px;">
+              <div class="box-body">
+                  <div class="avatar form-group col-md-12 text-center">
+                    <div class="picture avatar-md text-center">
+                      <img  ng-src="{{data.attributes.avatar.url}}" id="avatar" name="avatar" class="picture-src"/>
+                      <input class="input-img" type="file" name="logo" id="logo" onchange="angular.element(this).scope().getAvatar(this)" accept="image/*">
+                    </div>
+                    <h6>Avatar de proyecto</h6>
                   </div>
-                </td>
-        				<td>{{row.userid}}</td>
-        				<td>{{row.username}}</td>
-                <td>{{row.userlastname}}</td>
-        				<td>Desarrollador</td>
-        				<td class="text-center">
-        				  <button type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger">
-        					  <i class="fa fa-times"></i>
-        				  </button>
-                  <button type="button" ng-click="removeItem(row)" class="btn btn-sm btn-default ">
-        					  <i class="fa fa-pencil-square-o"></i>
-        				  </button>
-        				</td>
-        			</tr>
-        			</tbody>
-        		</table>
+                <div class="form-group col-md-6">
+                  <label>Código</label>
+                  <input type="text" ng-model="data.attributes.prjid" class="form-control"placeholder="Ingrese el WI del proyecto" required readonly>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Nombre del proyecto</label>
+                  <input type="text"ng-model="data.attributes.name" class="form-control"placeholder="Ingrese el nombre del proyecto" required>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Descripción</label>
+                  <textarea type="text" ng-model="data.attributes.desc" rows="4" class="form-control" placeholder="Ingrese la descripción del proyecto" required></textarea>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Tipo de proyecto</label>
+                  <select class="form-control" ng-model="data.attributes.type">
+                    <option value="">---</option>
+                    <option ng-repeat="type in types" value="{{type.value}}">{{type.name}}</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Estado</label>
+                  <select class="form-control" ng-model="data.attributes.status">
+                    <option value="">---</option>
+                    <option ng-repeat="statu in status" value="{{statu.value}}">{{statu.name}}</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Componente</label>
+                  <select class="form-control" ng-model="data.attributes.compo">
+                    <option value="">---</option>
+                    <option ng-repeat="component in components" value="{{component.value}}">{{component.name}}</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Moneda</label>
+                  <select class="form-control" ng-model="data.attributes.current">
+                    <option value="">---</option>
+                    <option ng-repeat="curr in currency" value="{{curr.value}}">{{curr.name}}</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Fecha de inicio</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" ng-model="data.attributes.init" class="form-control dateinput" placeholder="Ingrese la fecha de inicio del proyecto" required>
+                  </div><!-- /.input group -->
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Fecha de finalización</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" ng-model="data.attributes.end" class="form-control dateinput" placeholder="Ingrese la fecha de finalización del proyecto" required>
+                  </div><!-- /.input group -->
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Ubicación</label>
+                  <input type="text"ng-model="data.attributes.locale" class="form-control"placeholder="Ingrese la ubicación del proyecto" required>
+                </div>
+              </div>
           </div>
-      </div>
+        </uib-tab>
+        <uib-tab heading="Equipos">
+          <div class="box box-primary" ng-show="viewteam">
+              <br>
+              <div class="box-header with-border">
+                <div class="pull-right">
+                  <button type="button" class="btn btn-primary"ng-click="addTeam()"><i class="fa fa-plus"></i></button>
+                </div>
+              </div>
+              <div class="box-body">
+                <div class="col-sm-2" ng-repeat="item in teams track by $index ">
+                  <a href="" ng-click="detailTeam(item.id)">
+                    <!-- Widget: user widget style 1 -->
+                    <div class="box box-widget widget-user" style="box-shadow: 0 1px 1px rgb(0, 0, 0);">
+                      <!-- Add the bg color to the header using any of the bg-* classes -->
+                      <div class="widget-user-header bg-aqua-active">
+                        <h3 class="widget-user-username">{{item.name}}</h3>
+                        <h5 class="widget-user-desc">{{item.desc}}</h5>
+                      </div>
+                      <div class="widget-user-image">
+                        <img class="img-circle"ng-src="{{item.avatar}}" alt="User Avatar">
+                      </div>
+                      <div class="box-footer">
+                        <div class="row">
+                          <div class="col-sm-6 border-right">
+                            <div class="description-block">
+                              <h5 class="description-header">{{item.nromembers}}</h5>
+                              <span class="description-text">Miembros</span>
+                            </div><!-- /.description-block -->
+                          </div><!-- /.col -->
+                          <div class="col-sm-6">
+                            <div class="description-block">
+                              <h5 class="description-header">{{item.tasks}}</h5>
+                              <span class="description-text">Tareas</span>
+                            </div><!-- /.description-block -->
+                          </div><!-- /.col -->
+                        </div><!-- /.row -->
+                      </div>
+                    </div><!-- /.widget-user -->
 
+                  </a>
+                </div>
+              </div>
+          </div>
+
+          <div class="box box-primary" ng-show = "!viewteam">
+              <div class="box-header with-border">
+                Información del equipo
+                <div class="pull-right">
+                  <a type="button" href="" ng-click="detailTeamOff()" class="btn btn-danger "><i class="fa fa-times"></i></a>
+                </div>
+              </div>
+              <div class="box-body">
+                  <div class="avatar form-group col-md-12 text-center">
+                    <div class="picture avatar-md text-center">
+                      <img  ng-src="{{team.avatar}}" class="picture-src"/>
+                      <input class="input-img" type="file" name="logo" id="logo" onchange="angular.element(this).scope().getAvatarTeam(this)" accept="image/*">
+                    </div>
+                    <h6>Avatar de equipo</h6>
+                  </div>
+                <div class="form-group col-md-4">
+                  <label>Nombre de equipo</label>
+                  <input type="text" ng-model="team.name" class="form-control" placeholder="Ingrese nombre del equipo" required>
+                </div>
+                <div class="form-group col-md-8">
+                  <label>Descripción</label>
+                  <input type="text"ng-model="team.desc" class="form-control"placeholder="Ingrese la descripción del equipo">
+                </div>
+             </div>
+          </div>
+          <div class="box box-primary" ng-show = "!viewteam">
+              <div class="box-header with-border">
+                Miembros
+                <div class="pull-right">
+                  <a type="button" href="" ng-click="selectMemberTeam()" class="btn btn-primary "><i class="fa fa-plus"></i></a>
+                </div>
+              </div>
+              <div class="box-body">
+                <section class="content">
+                  <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped table-bordered" cellspacing="0" width="100%">
+              			<thead>
+                    <tr>
+                			<th colspan="5"><input ng-model="searchText" class="form-control" placeholder="Ingrese filtro ..." type="text"/></th>
+                      <th colspan="4"></th>
+                		</tr>
+              			<tr>
+              				<th></th>
+                      <th st-sort="userid">Id</th>
+              				<th st-sort="username">Nombre</th>
+              				<th st-sort="userlastname">Apellido</th>
+                      <th st-sort="usermailibm">Correo</th>
+                      <th st-sort="userskype">Skype</th>
+                      <th></th>
+              			</tr>
+
+              			</thead>
+              			<tbody>
+              			<tr ng-repeat=" item in team.members | filter: searchText">
+              				<td class="text-center">
+                        <div class="image">
+                          <a ng-click="editUser(item.username)" href=""><img ng-src="{{item.avatar.url}}" class="img-circle" alt="User Image" style=" width: 50px;"></a>
+                        </div>
+                      </td>
+              				<td><a ng-click="editUser(item.username)" href="">{{item.username}}</a></td>
+              				<td>{{item.name}}</td>
+                      <td>{{item.lastname}}</td>
+              				<td>{{item.email}}</td>
+                      <td>{{item.skype}}</td>
+              				<td class="text-center">
+                        <a class="fa fa-trash fa-lg icon-remove" href="" ng-click="deleteMemberTeam($index)"></a>
+              				</td>
+              			</tr>
+              			</tbody>
+              		</table>
+
+             </div>
+          </div>
+        </uib-tab>
+        <uib-tab heading="Miembros">
+        </uib-tab>
+
+      </uib-tabset>
     </form>
 
   </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
+
+<div class="modal fade" id="teamModal">
+  <div class="modal-dialog" style="margin: 300px auto;">
+    <div class="modal-content panel-default">
+      <div id="modal-content-ok" class="modal-header panel-heading">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"><h1>Equipo<small> de proyecto</small></h1></h4>
+      </div>
+      <div class="modal-body">
+        <section class="content">
+            <form id="curse" ng-submit="appendTeam()">
+              <div class="box box-primary">
+                  <div class="box-body">
+                    <div class="avatar form-group col-md-12 text-center">
+                      <div class="picture avatar-md text-center">
+                        <img  src="images/team-default-2.gif" id="avatarTeam" name="avatar" class="picture-src" style="background-color: rgba(31, 73, 115, 0.91);
+}"/>
+                        <input class="input-img" type="file" name="logo" id="logo" onchange="angular.element(this).scope().getAvatarTeam(this)" accept="image/*">
+                      </div>
+                      <h6>Avatar del equipo</h6>
+                    </div>
+                    <div class="form-group col-md-12">
+                      <label>Nombre de equipo</label>
+                      <input type="text"ng-model="team.name" class="form-control"placeholder="Ingrese el nombre del equipo de proyecto" required>
+                    </div>
+                    <div class="form-group col-md-12">
+                      <label>Descripción de equipo</label>
+                      <input type="text"ng-model="team.desc" class="form-control"placeholder="Ingrese descripción del equipo">
+                    </div>
+                  </div>
+              </div>
+
+            </form>
+        </section>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" form="curse" class="btn btn-primary">Agregar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade" id="selectMemberModal">
+  <div class="modal-dialog modal-lg" style="margin: 300px auto;">
+    <div class="modal-content panel-primary">
+      <div id="modal-content-ok" class="modal-header panel-heading">
+        <button type="button" class="close btn-white" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3>Agregar miembros</h3>
+      </div>
+      <div class="modal-body">
+        <section class="content">
+          <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped table-bordered" cellspacing="0" width="100%">
+      			<thead>
+            <tr>
+        			<th colspan="5"><input ng-model="searchText" class="form-control" placeholder="Ingrese filtro ..." type="text"/></th>
+              <th colspan="4"></th>
+        		</tr>
+      			<tr>
+      				<th></th>
+              <th st-sort="userid">Id</th>
+      				<th st-sort="username">Nombre</th>
+      				<th st-sort="userlastname">Apellido</th>
+              <th st-sort="usermailibm">Correo</th>
+              <th st-sort="userskype">Skype</th>
+              <th></th>
+      			</tr>
+
+      			</thead>
+      			<tbody>
+      			<tr ng-repeat="row in  members | filter: searchText">
+      				<td class="text-center">
+                <div class="image">
+                  <a ng-click="editUser(row.username)" href=""><img ng-src="{{row.avatar.url}}" class="img-circle" alt="User Image" style=" width: 50px;"></a>
+                </div>
+              </td>
+      				<td><a ng-click="editUser(row.username)" href="">{{row.username}}</a></td>
+      				<td>{{row.name}}</td>
+              <td>{{row.lastname}}</td>
+      				<td>{{row.email}}</td>
+              <td>{{row.skype}}</td>
+      				<td class="text-center">
+      				  <input type="checkbox" ng-model="row.mark">
+      				</td>
+      			</tr>
+      			</tbody>
+      		</table>
+
+        </section>
+      </div>
+      <div class="modal-footer">
+        <button type="button" form="curse" class="btn btn-primary" ng-click="addMemberTeam()">Agregar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

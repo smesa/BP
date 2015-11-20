@@ -25,26 +25,16 @@ angular.module('basekampApp')
        location.href = '#/project-edit/'+prjid;
      };
 
-     $scope.deleteProj = function(index){
+     $scope.deleteProj = function(prjid, index){
 
        bootbox.confirm("Esta seguro de eliminar el proyecto?", function(result) {
 
           if(result == true){
 
-            var data = { 'option': 'proj_delete', 'method' : 'DELETE', 'prjid' : $scope.rowCollection[index].prjid }
+            projsServices.projDelete(prjid).then(function(){
 
-            projsServices.projDelete(data).then(function(data){
-              // Extraigo el mensaje
-              $rootScope.message = data.message;
-
-              bootbox.alert($rootScope.message , function() {});
-
-              // Muestro el modal resultante
-              switch (data.type) {
-                case 'S':
-                  $scope.rowCollection.splice(index, 1);
-                  break;
-              }
+              bootbox.alert('Proyecto eliminado' , function() {});
+              $scope.rowCollection.splice(index, 1);
 
             });
           }

@@ -21,7 +21,7 @@
     			<th colspan="3"><input ng-model="searchText" class="form-control" placeholder="Ingrese filtro ..." type="text"/></th>
           <th colspan="5"></th>
           <th colspan="1" class="text-center">
-            <button type="button" ng-click="createUser()" class="btn btn-primary">
+            <button type="button" ng-click="createUser()" class="btn btn-md btn-default">
               <i class="fa fa-plus"></i>
             </button></th>
     		</tr>
@@ -39,24 +39,24 @@
 
   			</thead>
   			<tbody>
-  			<tr ng-repeat="row in  rowCollection | filter:searchText">
+  			<tr ng-repeat="row in  rowCollection | filter: searchText">
   				<td class="text-center">
             <div class="image">
-              <a ng-click="editUser(row.userid)" href=""><img ng-src="{{row.useravatar}}" class="img-circle" alt="User Image" style=" width: 50px;"></a>
+              <a ng-click="editUser(row.username)" href=""><img ng-src="{{row.avatar.url}}" class="img-circle" alt="User Image" style=" width: 50px;"></a>
             </div>
           </td>
-  				<td><a ng-click="editUser(row.userid)" href="">{{row.userid}}</a></td>
-  				<td>{{row.username}}</td>
-          <td>{{row.userlastname}}</td>
-  				<td>{{row.usermailibm}}</td>
-          <td>{{row.userphoneibm}}</td>
-  				<td>{{row.userphoneperson}}</td>
-          <td>{{row.userskype}}</td>
+  				<td><a ng-click="editUser(row.username)" href="">{{row.username}}</a></td>
+  				<td>{{row.name}}</td>
+          <td>{{row.lastname}}</td>
+  				<td>{{row.email}}</td>
+          <td>{{row.phoneibm}}</td>
+  				<td>{{row.phoneperson}}</td>
+          <td>{{row.skype}}</td>
   				<td class="text-center">
-  				  <button type="button" ng-click="deleteUser($index)" class="btn btn-sm btn-danger">
+  				  <button type="button" ng-click="deleteUser($index, row.username)" class="btn btn-sm btn-danger">
   					  <i class="fa fa-times"></i>
   				  </button>
-            <button type="button" ng-click="editUser(row.userid)" class="btn btn-sm btn-default ">
+            <button type="button" ng-click="editUser(row.username)" class="btn btn-sm btn-default ">
   					  <i class="fa fa-pencil-square-o"></i>
   				  </button>
   				</td>

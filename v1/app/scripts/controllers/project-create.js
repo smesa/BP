@@ -11,7 +11,7 @@ angular.module('basekampApp')
   .controller('ProjectCreateCtrl', function ($scope, $rootScope, localStorageService, projsServices) {
 
 
-    $scope.data = { 'option': 'proj_create', 'id' : '', 'name' : '', 'desc' : '', 'status' : '', 'type' : '', 'compo' : '', 'init' : '', 'end' : '', 'locale' : '','current' : '', 'avatar': ''}
+    $scope.data = {  'prjid' : '', 'name' : '', 'desc' : '', 'status' : '', 'type' : '', 'compo' : '', 'init' : '', 'end' : '', 'locale' : '','current' : '', 'avatar': ''}
 
     $scope.types   = localStorageService.get('types');
     $scope.status  = localStorageService.get('status');
@@ -22,16 +22,9 @@ angular.module('basekampApp')
     $scope.save = function(){
 
       projsServices.projCreate($scope.data).then(function(data){
-        // Extraigo el mensaje
-        $rootScope.message = data.message;
-        bootbox.alert($rootScope.message , function() {});
 
-        // Muestro el modal resultante
-        switch (data.type) {
-          case 'S':
-            location.href = '#/project-list/';
-            break;
-        }
+        bootbox.alert('Proyecto creado' , function() {});
+        location.href = '#/project-list/';
       });
     }
 

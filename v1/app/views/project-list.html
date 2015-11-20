@@ -40,16 +40,16 @@
   			<tr ng-repeat="row in  rowCollection | filter:searchText">
   				<td class="text-center">
             <div class="image">
-              <a ng-click="editProj(row.prjid)" href=""><img ng-src="{{row.prjavatar}}" class="img-circle" alt="User Image" style=" width: 50px;"></a>
+              <a ng-click="editProj(row.prjid)" href=""><img ng-src="{{row.avatar.url}}" class="img-circle" alt="User Image" style=" width: 50px;height: 50px;"></a>
             </div>
           </td>
   				<td><a ng-click="editProj(row.prjid)" href="">{{row.prjid}}</a></td>
-          <td>{{row.prjname}}</td>
-  				<td>{{row.prjstatus}}</td>
-          <td>{{row.prjtype}}</td>
-  				<td>{{row.prjcompo}}</td>
+          <td>{{row.name}}</td>
+  				<td>{{row.status}}</td>
+          <td>{{row.type}}</td>
+  				<td>{{row.compo}}</td>
   				<td class="text-center">
-  				  <button type="button" ng-click="deleteProj($index)" class="btn btn-sm btn-danger">
+  				  <button type="button" ng-click="deleteProj(row.prjid, $index)" class="btn btn-sm btn-danger">
   					  <i class="fa fa-times"></i>
   				  </button>
             <button type="button" ng-click="editProj(row.prjid)" class="btn btn-sm btn-default ">
