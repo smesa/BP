@@ -86,6 +86,7 @@ angular.module('basekampApp')
       return deferred.promise;
     };
 
+    // Guardar nuevo proyecto
     function saveParse(oParameters,oEmail,oEdu){
 
       var deferred   = $q.defer();
@@ -105,43 +106,57 @@ angular.module('basekampApp')
       return deferred.promise;
     }
 
-    function projUpdate(oParameters){
+
+    // Actualizar proyectos
+    function projUpdate(projects,teams){
 
       var deferred      = $q.defer();
-      var Projects      = Parse.Object.extend("Projects");
-      var queryProjects = new Parse.Query(Projects);
+      var oProjects     = Parse.Object.extend("Projects");
+      var newProject    = new Parse.Query(oProjects);
+      var oTeams        = Parse.Object.extend("teams");
+      var newTeam       = new Parse.Query(oTeams);
+      var oMembers      = Parse.Object.extend("members");
+      var newMembers    = new Parse.Query(oMembers);
 
 
-      queryProjects.equalTo("prjid",oParameters.attributes.prjid);
+      // Arreglo datos de equipos.
+      var dataTeams   = [];
+      var dataMembers = [];
 
-      if(oParameters.attributes.avatar.length > 0){
+      angular.forEach(teams, function(item){
 
-        var parseFile = new Parse.File("avatar", { base64: oParameters.attributes.avatar });
+        // Saco el numero de miembros
+        item.nromembers = item.members.length;
+        // Saco el numero de tareas
+        //item.nrotasks   = item.tasks.length;
 
-        parseFile.save().then(function() {
+        dataTeams.push({'prjid':projects.prjid, 'tmid':item.tmid,'name':item.name,'desc':item.desc,'nromembers':item.nromembers,'nrotasks':item.nrotasks})
 
-          oParameters.attributes.avatar = parseFile;
+        // Para cada equipo recorro los miembros
+        angular.forEach(item.members,function(member){
+          dataMembers.push({'prjid':projects.prjid,'tmid':item.tmid,'username':member.username})
+        })
 
-          queryProjects.find({
-            success: function(proj) {
-              if (proj.length > 0){
-                proj[0].set(oParameters.attributes);
-                proj[0].save();
-                return deferred.resolve();
-              }
-            },
-            error: function(){
-              return deferred.resolve();
-            }
-          });
-        });
-      }else{
+      })
 
-        queryProjects.find({
+      // Consulto los datos actuales del proyecto
+      newProject.equalTo("prjid",projects.attributes.prjid);
+
+      // Guardo el avatar del proyecto
+      var newFile = new Parse.File("avatar", { base64: projects.attributes.avatar.url });
+
+      // Cuando guarde entonces guardo los datos del proyecto
+      newFile.save().then(function() {
+
+        // Agrego el avatar
+        projects.attributes.avatar = newFile;
+
+        // consulto el proyecto
+        newProject.find({
           success: function(proj) {
             if (proj.length > 0){
-              proj[0].set(oParameters.attributes);
-              proj[0].save();
+              proj[0].set(projects.attributes); // Asigno nueva info
+              proj[0].save(); // Guardo
               return deferred.resolve();
             }
           },
@@ -149,22 +164,21 @@ angular.module('basekampApp')
             return deferred.resolve();
           }
         });
-      }
+      });
 
       return deferred.promise;
     }
 
+    // Eliminar proyectos
     function projDelete(prjid){
 
       var deferred      = $q.defer();
       var Projects      = Parse.Object.extend("Projects");
-      var queryProjects = new Parse.Query(Projects);
+      var newProject    = new Parse.Query(Projects);
 
+      newProject.equalTo("prjid",prjid);
 
-      queryProjects.equalTo("prjid",prjid);
-
-
-      queryProjects.find({
+      newProject.find({
         success: function(proj) {
           if (proj.length > 0){
             proj[0].destroy();

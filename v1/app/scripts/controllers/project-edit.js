@@ -38,7 +38,6 @@ angular.module('basekampApp')
 
       bootbox.confirm("Esta seguro de guardar estos cambios?", function(result) {
          if(result == true){
-
             projsServices.projUpdate($scope.data).then(function(data){
               bootbox.alert('Datos de proyecto actualizados' , function() {});
               location.href = '#/project-list/';
@@ -89,13 +88,18 @@ angular.module('basekampApp')
       $('#teamModal').modal('show');
       $('#avatarTeam').attr('src', 'images/team-default-2.gif');
     }
+
     $scope.appendTeam = function(){
-      $scope.team.id = $scope.generateUUID();
+
+      $scope.team.tmid       = $scope.generateUUID();
+      $scope.prjid           = $scope.data.prjid.
       $scope.team.nromembers = 0;
-      $scope.team.tasks = 0;
+      $scope.team.nrotasks   = 0;
+
       if(!$scope.team.avatar){
         $scope.team.avatar = "images/team-default-2.gif"
       }
+
       $scope.teams.push($scope.team);
       $scope.team = {};
       $('#avatarTeam').attr('src', '');
@@ -104,7 +108,6 @@ angular.module('basekampApp')
 
     $scope.detailTeam = function(team){
       $scope.viewteam    = !$scope.viewteam;
-      $scope.teamMembers = [];
       $scope.team        = $filter('filter')($scope.teams, {id: team}, true)[0];
     }
 
@@ -133,36 +136,6 @@ angular.module('basekampApp')
         $scope.team.members.push(item);
       })
 
-      //bootbox.alert('Miembros agregados' , function() {});
-
-      bootbox.dialog({
-        message: "I am a custom dialog",
-        title: "Custom title",
-        buttons: {
-          success: {
-            label: "Success!",
-            className: "btn-success",
-            callback: function() {
-              Example.show("great success");
-            }
-          },
-          danger: {
-            label: "Danger!",
-            className: "btn-danger",
-            callback: function() {
-              Example.show("uh oh, look out!");
-            }
-          },
-          main: {
-            label: "Click ME!",
-            className: "btn-primary",
-            callback: function() {
-              Example.show("Primary button");
-            }
-          }
-        }
-      });
-
       $('#selectMemberModal').modal('hide');
     }
 
@@ -172,9 +145,7 @@ angular.module('basekampApp')
          if(result == true){
              // Extraigo el mensaje
              $scope.team.members.splice(index, 1);
-             bootbox.alert('miembro eliminado' , function() {});
              $scope.$apply();
-
          }
       });
     }

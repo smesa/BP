@@ -29,8 +29,8 @@
               <div class="box-body">
                   <div class="avatar form-group col-md-12 text-center">
                     <div class="picture avatar-md text-center">
-                      <img  ng-src="{{data.attributes.avatar.url}}" id="avatar" name="avatar" class="picture-src"/>
-                      <input class="input-img" type="file" name="logo" id="logo" onchange="angular.element(this).scope().getAvatar(this)" accept="image/*">
+                      <img  ng-src="{{data.attributes.avatar.url}}" id="avatar" class="picture-src"/>
+                      <input class="input-img" type="file" onchange="angular.element(this).scope().getAvatar(this)" accept="image/*">
                     </div>
                     <h6>Avatar de proyecto</h6>
                   </div>
@@ -130,7 +130,7 @@
                           </div><!-- /.col -->
                           <div class="col-sm-6">
                             <div class="description-block">
-                              <h5 class="description-header">{{item.tasks}}</h5>
+                              <h5 class="description-header">{{item.nrotasks}}</h5>
                               <span class="description-text">Tareas</span>
                             </div><!-- /.description-block -->
                           </div><!-- /.col -->
@@ -151,16 +151,16 @@
                 </div>
               </div>
               <div class="box-body">
-                  <div class="avatar form-group col-md-12 text-center">
-                    <div class="picture avatar-md text-center">
-                      <img  ng-src="{{team.avatar}}" class="picture-src"/>
-                      <input class="input-img" type="file" name="logo" id="logo" onchange="angular.element(this).scope().getAvatarTeam(this)" accept="image/*">
-                    </div>
-                    <h6>Avatar de equipo</h6>
+                <div class="avatar form-group col-md-12 text-center">
+                  <div class="picture avatar-md text-center">
+                    <img  ng-src="{{team.avatar}}" class="picture-src"/>
+                    <input class="input-img" type="file" id="logoTeam" onchange="angular.element(this).scope().getAvatarTeam(this)" accept="image/*">
                   </div>
+                  <h6>Avatar de equipo</h6>
+                </div>
                 <div class="form-group col-md-4">
                   <label>Nombre de equipo</label>
-                  <input type="text" ng-model="team.name" class="form-control" placeholder="Ingrese nombre del equipo" required>
+                  <input type="text" ng-model="team.name" class="form-control" placeholder="Ingrese nombre del equipo">
                 </div>
                 <div class="form-group col-md-8">
                   <label>Descripción</label>
@@ -228,20 +228,20 @@
 <div class="modal fade" id="teamModal">
   <div class="modal-dialog" style="margin: 300px auto;">
     <div class="modal-content panel-default">
-      <div id="modal-content-ok" class="modal-header panel-heading">
+      <div class="modal-header panel-heading">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title"><h1>Equipo<small> de proyecto</small></h1></h4>
       </div>
       <div class="modal-body">
         <section class="content">
-            <form id="curse" ng-submit="appendTeam()">
+            <form id="form-team" ng-submit="appendTeam()">
               <div class="box box-primary">
                   <div class="box-body">
                     <div class="avatar form-group col-md-12 text-center">
                       <div class="picture avatar-md text-center">
-                        <img  src="images/team-default-2.gif" id="avatarTeam" name="avatar" class="picture-src" style="background-color: rgba(31, 73, 115, 0.91);
+                        <img  src="images/team-default-2.gif" id="avatarTeam" class="picture-src" style="background-color: rgba(31, 73, 115, 0.91);
 }"/>
-                        <input class="input-img" type="file" name="logo" id="logo" onchange="angular.element(this).scope().getAvatarTeam(this)" accept="image/*">
+                        <input class="input-img" type="file" onchange="angular.element(this).scope().getAvatarTeam(this)" accept="image/*">
                       </div>
                       <h6>Avatar del equipo</h6>
                     </div>
@@ -251,7 +251,7 @@
                     </div>
                     <div class="form-group col-md-12">
                       <label>Descripción de equipo</label>
-                      <input type="text"ng-model="team.desc" class="form-control"placeholder="Ingrese descripción del equipo">
+                      <input type="text" ng-model="team.desc" class="form-control"placeholder="Ingrese descripción del equipo">
                     </div>
                   </div>
               </div>
@@ -260,7 +260,7 @@
         </section>
       </div>
       <div class="modal-footer">
-        <button type="submit" form="curse" class="btn btn-primary">Agregar</button>
+        <button type="submit" form="form-team" class="btn btn-primary">Agregar</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -270,7 +270,7 @@
 <div class="modal fade" id="selectMemberModal">
   <div class="modal-dialog modal-lg" style="margin: 300px auto;">
     <div class="modal-content panel-primary">
-      <div id="modal-content-ok" class="modal-header panel-heading">
+      <div class="modal-header panel-heading">
         <button type="button" class="close btn-white" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h3>Agregar miembros</h3>
       </div>
