@@ -8,19 +8,20 @@
  * Controller of the basekampApp
  */
 angular.module('basekampApp')
-  .controller('UserEditCtrl', function ($scope,$rootScope,localStorageService,usersServices,$routeParams) {
+  .controller('UserEditCtrl',['$scope','$rootScope','$routeParams','localStorageService','usersServices',
+    function ($scope,$rootScope,$routeParams,$storage,$users) {
 
     var user_id = $routeParams.user_id;
 
-    $scope.countries  = localStorageService.get('countries');
-    $scope.cities     = localStorageService.get('cities');
+    $scope.countries  = $storage.get('countries');
+    $scope.cities     = $storage.get('cities');
 
     $scope.data = [];
     $scope.useredu = [];
     $scope.curso = [];
 
     // Consulto usuarios
-    usersServices.userData(user_id).then(function(data){
+    $users.get(user_id).then(function(data){
           $scope.userinfo = data.userinfo;
           $scope.useredu  = data.useredu;
           $('#avatar').attr('src', $scope.userinfo.attributes.avatar._url);
@@ -32,7 +33,7 @@ angular.module('basekampApp')
 
       bootbox.confirm("Esta seguro de guardar estos cambios?", function(result) {
          if(result == true){
-            usersServices.userUpdate($scope.userinfo,$scope.useredu).then(function(data){
+            $users.update($scope.userinfo,$scope.useredu).then(function(data){
               bootbox.alert('Datos de usuario guardados' , function() {});
               location.href = '#/user-list/';
             });
@@ -89,4 +90,4 @@ angular.module('basekampApp')
       keyboardNavigation: false
     });
 
-  });
+  }]);

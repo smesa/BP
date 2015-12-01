@@ -21,7 +21,7 @@
     			<th colspan="3"><input ng-model="searchText" class="form-control" placeholder="Ingrese filtro ..." type="text"/></th>
           <th colspan="5"></th>
           <th colspan="1" class="text-center">
-            <button type="button" ng-click="createUser()" class="btn btn-md btn-default">
+            <button type="button" ng-click="create()" class="btn btn-md btn-default">
               <i class="fa fa-plus"></i>
             </button></th>
     		</tr>
@@ -42,10 +42,10 @@
   			<tr ng-repeat="row in  rowCollection | filter: searchText">
   				<td class="text-center">
             <div class="image">
-              <a ng-click="editUser(row.username)" href=""><img ng-src="{{row.avatar.url}}" class="img-circle" alt="User Image" style=" width: 50px;"></a>
+              <a ng-click="edit(row.username)" href=""><img ng-src="{{row.avatar.url}}" class="img-circle" alt="User Image" style=" width: 50px;height: 50px;"></a>
             </div>
           </td>
-  				<td><a ng-click="editUser(row.username)" href="">{{row.username}}</a></td>
+  				<td><a ng-click="edit(row.username)" href="">{{row.username}}</a></td>
   				<td>{{row.name}}</td>
           <td>{{row.lastname}}</td>
   				<td>{{row.email}}</td>
@@ -53,10 +53,10 @@
   				<td>{{row.phoneperson}}</td>
           <td>{{row.skype}}</td>
   				<td class="text-center">
-  				  <button type="button" ng-click="deleteUser($index, row.username)" class="btn btn-sm btn-danger">
+  				  <button type="button" ng-click="delete($index, row.username)" class="btn btn-sm btn-danger">
   					  <i class="fa fa-times"></i>
   				  </button>
-            <button type="button" ng-click="editUser(row.username)" class="btn btn-sm btn-default ">
+            <button type="button" ng-click="edit(row.username)" class="btn btn-sm btn-default ">
   					  <i class="fa fa-pencil-square-o"></i>
   				  </button>
   				</td>

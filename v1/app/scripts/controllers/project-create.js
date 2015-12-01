@@ -8,7 +8,7 @@
  * Controller of the basekampApp
  */
 angular.module('basekampApp')
-  .controller('ProjectCreateCtrl', function ($scope, $rootScope, localStorageService, projsServices) {
+  .controller('ProjectCreateCtrl',['$scope', '$rootScope', 'localStorageService', 'projsServices', function ($scope, $rootScope, $storage, $projects) {
 
 
     $scope.data = {  'prjid' : '', 'name' : '', 'desc' : '', 'status' : '', 'type' : '', 'compo' : '', 'init' : '', 'end' : '', 'locale' : '','current' : '', 'avatar': ''}

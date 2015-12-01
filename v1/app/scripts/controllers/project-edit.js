@@ -8,14 +8,15 @@
  * Controller of the basekampApp
  */
 angular.module('basekampApp')
-  .controller('ProjectEditCtrl', function ($scope,$rootScope,$filter,localStorageService,projsServices,usersServices,$routeParams) {
+  .controller('ProjectEditCtrl',['$scope','$rootScope','$filter','$routeParams','$storage','$projects','usersServices',
+    function ($scope,$rootScope,$filter,$routeParams,$storage,$projects,$users) {
 
     var prj_id = $routeParams.prj_id;
 
-    $scope.types   = localStorageService.get('types');
-    $scope.status  = localStorageService.get('status');
-    $scope.components  = localStorageService.get('components');
-    $scope.currency  = localStorageService.get('currency');
+    $scope.types       = $storage.get('types');
+    $scope.status      = $storage.get('status');
+    $scope.components  = $storage.get('components');
+    $scope.currency    = $storage.get('currency');
 
 
     $scope.data = [];
@@ -25,7 +26,7 @@ angular.module('basekampApp')
     $scope.teamMembers = [];
 
     // Consulto usuarios
-    projsServices.projData(prj_id).then(function(data){
+    $projects.get(prj_id).then(function(data){
         $scope.data = data.projects;
         $('#avatar').attr('src', data.projects.attributes.avatar.url);
     });
@@ -38,7 +39,7 @@ angular.module('basekampApp')
 
       bootbox.confirm("Esta seguro de guardar estos cambios?", function(result) {
          if(result == true){
-            projsServices.projUpdate($scope.data).then(function(data){
+            $projects.update($scope.data).then(function(data){
               bootbox.alert('Datos de proyecto actualizados' , function() {});
               location.href = '#/project-list/';
             });
@@ -91,19 +92,33 @@ angular.module('basekampApp')
 
     $scope.appendTeam = function(){
 
-      $scope.team.tmid       = $scope.generateUUID();
-      $scope.prjid           = $scope.data.prjid.
-      $scope.team.nromembers = 0;
-      $scope.team.nrotasks   = 0;
+      bootbox.confirm("¿Esta seguro de crear este equipo?", function(result) {
 
-      if(!$scope.team.avatar){
-        $scope.team.avatar = "images/team-default-2.gif"
-      }
+         if(result == true){
 
-      $scope.teams.push($scope.team);
-      $scope.team = {};
-      $('#avatarTeam').attr('src', '');
-      $('#teamModal').modal('hide');
+           $scope.team.tmid       = $scope.generateUUID();
+           $scope.team.prjid      = $scope.data.prjid;
+           $scope.team.nromembers = 0;
+           $scope.team.nrotasks   = 0;
+
+           if(!$scope.team.avatar){
+             $scope.team.avatar = "images/team-default-2.gif"
+           }
+
+           $scope.teams.push($scope.team);
+           $scope.team = {};
+           $('#avatarTeam').attr('src', '');
+           $('#teamModal').modal('hide');
+           $scope.$apply();
+
+         }else{
+           $scope.team = {};
+           $('#avatarTeam').attr('src', '');
+           $('#teamModal').modal('hide');
+         }
+      });
+
+
     }
 
     $scope.detailTeam = function(team){
@@ -118,7 +133,7 @@ angular.module('basekampApp')
     $scope.selectMemberTeam = function(){
 
       // Consulto usuarios
-      usersServices.userList().then(function(data){
+      $users.list().then(function(data){
          $scope.members = data;
       });
 

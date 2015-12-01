@@ -58,6 +58,11 @@ angular
         controller: 'ProjectEditCtrl',
         controllerAs: 'projectEdit'
       })
+      .when('/images-temp', {
+        templateUrl: 'views/load-images-temp.html',
+        controller: 'LoadImagesTempCtrl',
+        controllerAs: 'loadImagesTemp'
+      })
       .otherwise({
         redirectTo: '/'
       });

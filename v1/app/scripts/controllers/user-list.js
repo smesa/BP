@@ -8,30 +8,30 @@
  * Controller of the basekampApp
  */
 angular.module('basekampApp')
-  .controller('UserListCtrl', function ($scope,$rootScope, usersServices) {
+  .controller('UserListCtrl',['$scope','$rootScope','usersServices', function ($scope,$rootScope, $users) {
 
    $scope.rowCollection = [];
 
     // Consulto usuarios
-    usersServices.userList().then(function(data){
+    $users.list().then(function(data){
        $scope.rowCollection = data;
     });
 
-    $scope.createUser = function (){
+    $scope.create = function (){
       location.href = '#/user-create';
     };
 
-    $scope.editUser = function (userid){
+    $scope.edit = function (userid){
       location.href = '#/user-edit/'+userid;
     };
 
-    $scope.deleteUser = function(index,username){
+    $scope.delete = function(index,username){
 
       bootbox.confirm("Esta seguro de eliminar el usuario?", function(result) {
 
          if(result == true){
 
-           usersServices.userDelete(username).then(function(data){
+             $users.destroy(username).then(function(data){
              // Extraigo el mensaje
              $scope.rowCollection.splice(index, 1);
              bootbox.alert('Usuario eliminado' , function() {});
@@ -42,4 +42,4 @@ angular.module('basekampApp')
 
     }
 
-  });
+  }]);

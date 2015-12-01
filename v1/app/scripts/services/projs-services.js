@@ -11,7 +11,8 @@ angular.module('basekampApp')
   .factory('projsServices', function ($http, $q) {
 
 
-    function projList(){
+    // Listar
+    function list(){
 
       var deferred = $q.defer();
 
@@ -31,7 +32,7 @@ angular.module('basekampApp')
       return deferred.promise;
     };
 
-    function projData(prjid){
+    function get(prjid){
 
       var deferred      = $q.defer();
       var Projects      = Parse.Object.extend("Projects");
@@ -59,7 +60,7 @@ angular.module('basekampApp')
     };
 
 
-    function projCreate(oParameters){
+    function create(oParameters){
 
       var deferred = $q.defer();
 
@@ -106,9 +107,31 @@ angular.module('basekampApp')
       return deferred.promise;
     }
 
+    function teamCreate(data){
+
+      var deferred = $q.defer();
+    /*  var Teams    = Parse.Object.extend("Teams");
+      var newTeam  = new Teams();
+
+      newTeam.set(data);
+
+      newProjects.save(null,{
+        success: function(res){
+          return deferred.resolve();
+      },error: function(error){
+        alert("Error: " + error.code + " " + error.message);
+        return deferred.reject(error);
+      }}) */
+
+
+
+      return deferred.promise;
+
+    }
+
 
     // Actualizar proyectos
-    function projUpdate(projects,teams){
+    function update(projects,teams){
 
       var deferred      = $q.defer();
       var oProjects     = Parse.Object.extend("Projects");
@@ -170,7 +193,7 @@ angular.module('basekampApp')
     }
 
     // Eliminar proyectos
-    function projDelete(prjid){
+    function destroy(prjid){
 
       var deferred      = $q.defer();
       var Projects      = Parse.Object.extend("Projects");
@@ -194,10 +217,10 @@ angular.module('basekampApp')
     }
 
     return {
-      projList:projList,
-      projData:projData,
-      projCreate:projCreate,
-      projUpdate:projUpdate,
-      projDelete:projDelete
+      list:list,
+      get:get,
+      create:create,
+      update:update,
+      destroy:destroy
     };
   });

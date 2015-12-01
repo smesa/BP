@@ -8,7 +8,8 @@
  * Controller of the basekampApp
  */
 angular.module('basekampApp')
-  .controller('UserCreateCtrl', function ($scope,$rootScope,localStorageService,usersServices) {
+  .controller('UserCreateCtrl',['$scope','$rootScope','localStorageService','usersServices',
+    function ($scope,$rootScope,$storage,$users) {
 
       $scope.data = { 'username' : '', 'email' : '', 'name' : '', 'lastname' : '', 'birth' : '', 'contract' : '', 'country' : '', 'city' : '', 'phoneibm' : '',
         'phoneperson' : '', 'mailperson' : '', 'skype' : '', 'extibm' : '', 'company' : '', 'area' : '', 'typemachine' : '', 'serialmachine' : '',
@@ -16,8 +17,8 @@ angular.module('basekampApp')
         'avatar' : '', "active": "true" }
 
 
-      $scope.countries  = localStorageService.get('countries');
-      $scope.cities     = localStorageService.get('cities');
+      $scope.countries  = $storage.get('countries');
+      $scope.cities     = $storage.get('cities');
 
       $scope.education = [];
       $scope.email = "";
@@ -28,7 +29,7 @@ angular.module('basekampApp')
       $scope.save = function(){
 
         $scope.data.email = $scope.email
-        usersServices.userCreate($scope.data, $scope.data.email, $scope.education).then(function(data){
+        $users.create($scope.data, $scope.data.email, $scope.education).then(function(data){
           bootbox.alert('Usuario creado con exito' , function() {});
           location.href = '#/user-list/';
 
@@ -81,4 +82,4 @@ angular.module('basekampApp')
     		keyboardNavigation: false
     	});
 
-  });
+  }]);

@@ -10,7 +10,7 @@ angular.module('basekampApp')
   .factory('usersServices', function ($http, $q, $rootScope) {
 
 
-    function userList(){
+    function list(){
 
       var deferred = $q.defer();
 
@@ -30,7 +30,7 @@ angular.module('basekampApp')
 
     };
 
-    function userData(user_id){
+    function get(user_id){
 
       var deferred      = $q.defer();
       var UserInfo      = Parse.Object.extend("UserInfo");
@@ -67,7 +67,7 @@ angular.module('basekampApp')
     };
 
 
-    function userCreate(oParameters, oEmail, oEdu){
+    function create(oParameters, oEmail, oEdu){
 
       var deferred = $q.defer();
       var sessionToken = Parse.User.current().getSessionToken();
@@ -134,7 +134,7 @@ angular.module('basekampApp')
     }
 
 
-    function userUpdate(info,edu){
+    function update(info,edu){
 
       var deferred      = $q.defer();
       var UserInfo      = Parse.Object.extend("UserInfo");
@@ -226,7 +226,7 @@ angular.module('basekampApp')
     }
 
 
-    function userDelete(user_id){
+    function destroy(user_id){
 
       var deferred      = $q.defer();
       var UserInfo      = Parse.Object.extend("UserInfo");
@@ -263,10 +263,10 @@ angular.module('basekampApp')
     }
 
     return {
-      userList:userList,
-      userData:userData,
-      userCreate:userCreate,
-      userUpdate:userUpdate,
-      userDelete:userDelete
+      list:list,
+      get:get,
+      create:create,
+      update:update,
+      destroy:destroy
     };
   });

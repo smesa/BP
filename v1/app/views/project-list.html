@@ -21,7 +21,7 @@
     			<th colspan="3"><input ng-model="searchText" class="form-control" placeholder="Ingrese filtro ..." type="text"/></th>
           <th colspan="3"></th>
           <th colspan="1" class="text-center">
-            <button type="button" ng-click="createProj()" class="btn btn-primary">
+            <button type="button" ng-click="create()" class="btn btn-primary">
               <i class="fa fa-plus"></i>
             </button></th>
     		</tr>
@@ -40,19 +40,19 @@
   			<tr ng-repeat="row in  rowCollection | filter:searchText">
   				<td class="text-center">
             <div class="image">
-              <a ng-click="editProj(row.prjid)" href=""><img ng-src="{{row.avatar.url}}" class="img-circle" alt="User Image" style=" width: 50px;height: 50px;"></a>
+              <a ng-click="edit(row.prjid)" href=""><img ng-src="{{row.avatar.url}}" class="img-circle" alt="User Image" style=" width: 50px;height: 50px;"></a>
             </div>
           </td>
-  				<td><a ng-click="editProj(row.prjid)" href="">{{row.prjid}}</a></td>
+  				<td><a ng-click="edit(row.prjid)" href="">{{row.prjid}}</a></td>
           <td>{{row.name}}</td>
   				<td>{{row.status}}</td>
           <td>{{row.type}}</td>
   				<td>{{row.compo}}</td>
   				<td class="text-center">
-  				  <button type="button" ng-click="deleteProj(row.prjid, $index)" class="btn btn-sm btn-danger">
+  				  <button type="button" ng-click="delete(row.prjid, $index)" class="btn btn-sm btn-danger">
   					  <i class="fa fa-times"></i>
   				  </button>
-            <button type="button" ng-click="editProj(row.prjid)" class="btn btn-sm btn-default ">
+            <button type="button" ng-click="edittProj(row.prjid)" class="btn btn-sm btn-default ">
   					  <i class="fa fa-pencil-square-o"></i>
   				  </button>
   				</td>
