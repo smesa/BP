@@ -16,8 +16,6 @@
   <!-- Main content -->
   <section class="content">
     <form ng-submit="save()">
-      <uib-tabset>
-        <uib-tab heading="Información">
           <div class="box box-primary">
               <br>
               <div class="box-header with-border">
@@ -29,7 +27,7 @@
               <div class="box-body">
                   <div class="avatar form-group col-md-12 text-center">
                     <div class="picture avatar-md text-center">
-                      <img  ng-src="{{data.attributes.avatar.url}}" id="avatar" class="picture-src"/>
+                      <img  ng-src="{{data.attributes.avatar}}" id="avatar" class="picture-src"/>
                       <input class="input-img" type="file" onchange="angular.element(this).scope().getAvatar(this)" accept="image/*">
                     </div>
                     <h6>Avatar de proyecto</h6>
@@ -98,8 +96,6 @@
                 </div>
               </div>
           </div>
-        </uib-tab>
-        <uib-tab heading="Equipos">
           <div class="box box-primary" ng-show="viewteam">
               <br>
               <div class="box-header with-border">
@@ -215,11 +211,6 @@
 
              </div>
           </div>
-        </uib-tab>
-        <uib-tab heading="Miembros">
-        </uib-tab>
-
-      </uib-tabset>
     </form>
 
   </section><!-- /.content -->

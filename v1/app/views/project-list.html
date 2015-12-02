@@ -23,7 +23,8 @@
           <th colspan="1" class="text-center">
             <button type="button" ng-click="create()" class="btn btn-primary">
               <i class="fa fa-plus"></i>
-            </button></th>
+            </button>
+          </th>
     		</tr>
   			<tr>
   				<th></th>
@@ -40,7 +41,7 @@
   			<tr ng-repeat="row in  rowCollection | filter:searchText">
   				<td class="text-center">
             <div class="image">
-              <a ng-click="edit(row.prjid)" href=""><img ng-src="{{row.avatar.url}}" class="img-circle" alt="User Image" style=" width: 50px;height: 50px;"></a>
+              <a ng-click="edit(row.prjid)" href=""><img ng-src="{{row.avatar}}" class="img-circle" alt="User Image" style=" width: 50px;height: 50px;"></a>
             </div>
           </td>
   				<td><a ng-click="edit(row.prjid)" href="">{{row.prjid}}</a></td>
@@ -59,6 +60,10 @@
   			</tr>
   			</tbody>
   		</table>
+
+      <div class="overlay" ng-show="overlay">
+          <i class="fa fa-refresh fa-spin"></i>
+      </div>
 
     </div>
 

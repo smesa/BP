@@ -8,49 +8,25 @@
  * Controller of the basekampApp
  */
 angular.module('basekampApp')
-  .controller('ProjectCreateCtrl',['$scope', '$rootScope', 'localStorageService', 'projsServices', function ($scope, $rootScope, $storage, $projects) {
+  .controller('ProjectCreateCtrl',['$scope', '$rootScope', 'localStorageService', 'projsServices', 'ngDialog',
+    function ($scope, $rootScope, $storage, $projects, ngDialog) {
 
 
-    $scope.data = {  'prjid' : '', 'name' : '', 'desc' : '', 'status' : '', 'type' : '', 'compo' : '', 'init' : '', 'end' : '', 'locale' : '','current' : '', 'avatar': ''}
-
-    $scope.types   = localStorageService.get('types');
-    $scope.status  = localStorageService.get('status');
-    $scope.components  = localStorageService.get('components');
-    $scope.currency  = localStorageService.get('currency');
-
+    $scope.data = {  'prjid' : '', 'name' : ''}
+    $scope.overlay = false;
 
     $scope.save = function(){
 
-      projsServices.projCreate($scope.data).then(function(data){
+      $scope.overlay = !$scope.overlay;
 
-        bootbox.alert('Proyecto creado' , function() {});
+      $projects.create($scope.data).then(function(data){
+        ngDialog.close();
+        $scope.overlay = !$scope.overlay;
+        AlertJS.Notify.Success("Atención","Proyecto creado exitosamente");
         location.href = '#/project-list/';
+      },function(reason) {
+        AlertJS.Notify.error("Atención", "Error creando el proyecto");
       });
     }
 
-    $scope.getAvatar = function(evt){
-
-      // Creo reader del input file
-      var reader = new FileReader();
-
-      // Registro el evento onload
-      reader.onload = function (loadEvent) {
-        // Muevo el valor de la imagen en base 64
-        $scope.data.avatar = loadEvent.target.result;
-        // Actualizo el logo
-        $('#avatar').attr('src', loadEvent.target.result);
-      };
-
-      // Envio el dato capturado para iniciar la carga
-      reader.readAsDataURL( evt.files[0] );
-    }
-
-    $('.dateinput').datepicker({
-      language: 'ES',
-      todayHighlight: true,
-      enableOnReadonly: true,
-      format: "dd/mm/yyyy",
-      keyboardNavigation: false
-    });
-
-  });
+  }]);

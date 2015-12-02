@@ -14,7 +14,8 @@ angular
     'ngRoute',
     'smart-table',
     'LocalStorageModule',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ngDialog'
   ])
   .config(function ($routeProvider,localStorageServiceProvider) {
     $routeProvider
@@ -81,6 +82,8 @@ angular
   		    today: "Hoy",
   		    clear: "Borrar"
   	};
+
+    AlertJS.setSetting("sound", true);
 
     Parse.$ = jQuery;
     Parse.initialize("azXqupSuOSFLFgVnelWhl6x44rtScVwwvEg9Gh5c", "U4ACfj9UzW1tV8b1OxpBSmOcMntVN8YsAju6ORIg");

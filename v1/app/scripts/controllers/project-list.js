@@ -8,18 +8,24 @@
  * Controller of the basekampApp
  */
 angular.module('basekampApp')
-  .controller('ProjectListCtrl',['$scope','$rootScope', 'projsServices', function ($scope,$rootScope,$projects) {
+  .controller('ProjectListCtrl',['$scope','$rootScope', 'projsServices','ngDialog', function ($scope,$rootScope,$projects,ngDialog) {
 
     $scope.rowCollection = [];
+    $scope.overlay = false;
 
      // Consulto usuarios
      $projects.list().then(function(data){
         $scope.rowCollection = data;
      });
 
-     $scope.create = function (){
-       location.href = '#/project-create';
-     };
+     $scope.create = function(){
+       ngDialog.open({
+         template: 'views/dialogs/create-project.html',
+         className: 'ngdialog-theme-plain',
+         controller: 'ProjectCreateCtrl'
+       });
+     }
+
 
      $scope.edit = function (prjid){
        location.href = '#/project-edit/'+prjid;
@@ -31,11 +37,13 @@ angular.module('basekampApp')
 
           if(result == true){
 
+            $scope.overlay = !$scope.overlay;
             $projects.destroy(prjid).then(function(){
-
-              bootbox.alert('Proyecto eliminado' , function() {});
+              $scope.overlay = !$scope.overlay;
+              AlertJS.Notify.Success("Atención", "Proyecto eliminado");
               $scope.rowCollection.splice(index, 1);
-
+            },function(error){
+              AlertJS.Notify.error("Atención", "Error eliminando el proyecto");
             });
           }
        });

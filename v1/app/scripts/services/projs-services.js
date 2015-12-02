@@ -22,6 +22,15 @@ angular.module('basekampApp')
       query.find({
         success: function(data) {
           data = JSON.parse(JSON.stringify(data))
+
+          angular.forEach(data,function(item){
+            if(!item.avatar){
+              item.avatar = 'images/icon-project.png'
+            }else{
+              item.avatar = item.avatar.url
+            }
+          })
+
           return deferred.resolve(data);
         },
         error: function(error){
@@ -47,6 +56,15 @@ angular.module('basekampApp')
             data.projects = {};
             data.projects.attributes = {};
             data.projects.attributes = JSON.parse(JSON.stringify(projects[0]));
+
+            angular.forEach(data,function(item){
+              if(!item.attributes.avatar){
+                item.attributes.avatar = 'images/icon-project.png'
+              }else{
+                item.attributes.avatar = item.attributes.avatar.url
+              }
+            })
+
             return deferred.resolve(data);
 
         },
@@ -63,34 +81,6 @@ angular.module('basekampApp')
     function create(oParameters){
 
       var deferred = $q.defer();
-
-      if(oParameters.avatar.length > 0){
-
-        var parseFile = new Parse.File("avatar", { base64: oParameters.avatar });
-
-        parseFile.save().then(function() {
-
-          oParameters.avatar = parseFile;
-          saveParse(oParameters).then(function(){
-                return deferred.resolve()
-          });
-        }, function(error) {
-              return deferred.reject(error);
-        });
-
-      }else{
-        saveParse(oParameters).then(function(){
-              return deferred.resolve()
-        });
-      }
-
-      return deferred.promise;
-    };
-
-    // Guardar nuevo proyecto
-    function saveParse(oParameters,oEmail,oEdu){
-
-      var deferred   = $q.defer();
       var Projects   = Parse.Object.extend("Projects");
 
       var newProjects= new Projects();
@@ -99,13 +89,13 @@ angular.module('basekampApp')
       newProjects.save(null,{
         success: function(res){
           return deferred.resolve();
-      },error: function(error){
-        alert("Error: " + error.code + " " + error.message);
-        return deferred.reject(error);
+        },error: function(error){
+          return deferred.reject(error);
       }})
 
       return deferred.promise;
-    }
+    };
+
 
     function teamCreate(data){
 

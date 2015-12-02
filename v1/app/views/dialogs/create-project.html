@@ -1,0 +1,27 @@
+<div class="dialog-contents">
+  <form>
+      <br>
+      <div class="box box-primary">
+          <div class="box-header with-border">
+            Nuevo proyecto
+          </div>
+          <div class="box-body">
+            <div class="form-group col-md-12">
+              <label>Código</label>
+              <input type="text" ng-model="data.prjid" class="form-control"placeholder="Ingrese el WI del proyecto" required>
+            </div>
+            <div class="form-group col-md-12">
+              <label>Nombre del proyecto</label>
+              <input type="text"ng-model="data.name" class="form-control"placeholder="Ingrese el nombre del proyecto" required>
+            </div>
+          </div>
+          <div class="overlay" ng-show="overlay">
+              <i class="fa fa-refresh fa-spin"></i>
+          </div>
+          <div class="box-footer">
+              <button class="pull-right btn btn-danger btn-flat" ng-click="closeThisDialog()" style="margin-left: 2px;">Cancelar</button>
+              <button type="button" ng-click="save() && confirm()" class="pull-right btn btn-primary btn-flat">Crear</button>
+          </div>
+    </div>
+  </form>
+</div>

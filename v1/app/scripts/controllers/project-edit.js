@@ -8,7 +8,7 @@
  * Controller of the basekampApp
  */
 angular.module('basekampApp')
-  .controller('ProjectEditCtrl',['$scope','$rootScope','$filter','$routeParams','$storage','$projects','usersServices',
+  .controller('ProjectEditCtrl',['$scope','$rootScope','$filter','$routeParams','localStorageService','projsServices','usersServices',
     function ($scope,$rootScope,$filter,$routeParams,$storage,$projects,$users) {
 
     var prj_id = $routeParams.prj_id;
@@ -28,7 +28,7 @@ angular.module('basekampApp')
     // Consulto usuarios
     $projects.get(prj_id).then(function(data){
         $scope.data = data.projects;
-        $('#avatar').attr('src', data.projects.attributes.avatar.url);
+        $('#avatar').attr('src', data.projects.attributes.avatar);
     });
 
     $scope.viewteam = true;
@@ -187,4 +187,4 @@ angular.module('basekampApp')
     });
 
 
-  });
+  }]);
