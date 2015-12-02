@@ -23,7 +23,7 @@ angular.module('basekampApp')
         ngDialog.close();
         $scope.overlay = !$scope.overlay;
         AlertJS.Notify.Success("Atención","Proyecto creado exitosamente");
-        location.href = '#/project-list/';
+        location.href = '#/project-edit/'+$scope.data.prjid;
       },function(reason) {
         AlertJS.Notify.error("Atención", "Error creando el proyecto");
       });

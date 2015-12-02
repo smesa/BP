@@ -49,11 +49,6 @@ angular
         controller: 'ProjectListCtrl',
         controllerAs: 'projectList'
       })
-      .when('/project-create', {
-        templateUrl: 'views/project-create.html',
-        controller: 'ProjectCreateCtrl',
-        controllerAs: 'projectCreate'
-      })
       .when('/project-edit/:prj_id', {
         templateUrl: 'views/project-edit.html',
         controller: 'ProjectEditCtrl',
@@ -63,6 +58,14 @@ angular
         templateUrl: 'views/load-images-temp.html',
         controller: 'LoadImagesTempCtrl',
         controllerAs: 'loadImagesTemp'
+      })
+      .when('/teams-list/:prj_id', {
+        templateUrl: 'views/teams-list.html',
+        controller: 'TeamsListCtrl'
+      })
+      .when('/tasks-list/:prj_id', {
+        templateUrl: 'views/tasks-list.html',
+        controller: 'TasksListCtrl'
       })
       .otherwise({
         redirectTo: '/'

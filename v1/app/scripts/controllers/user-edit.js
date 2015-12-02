@@ -24,7 +24,7 @@ angular.module('basekampApp')
     $users.get(user_id).then(function(data){
           $scope.userinfo = data.userinfo;
           $scope.useredu  = data.useredu;
-          $('#avatar').attr('src', $scope.userinfo.attributes.avatar._url);
+          $('#avatar').attr('src', $scope.userinfo.attributes.avatar);
     });
 
     // Funcion para guardar

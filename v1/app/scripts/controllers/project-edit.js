@@ -31,16 +31,18 @@ angular.module('basekampApp')
         $('#avatar').attr('src', data.projects.attributes.avatar);
     });
 
+
+
     $scope.viewteam = true;
 
     // Funcion para guardar
     $scope.save = function(){
 
 
-      bootbox.confirm("Esta seguro de guardar estos cambios?", function(result) {
+      bootbox.confirm("¿Esta seguro de guardar estos cambios?", function(result) {
          if(result == true){
             $projects.update($scope.data).then(function(data){
-              bootbox.alert('Datos de proyecto actualizados' , function() {});
+              AlertJS.Notify.Success("Atención","Proyecto actualizado exitosamente");
               location.href = '#/project-list/';
             });
          }

@@ -14,7 +14,7 @@ angular.module('basekampApp')
       $scope.data = { 'username' : '', 'email' : '', 'name' : '', 'lastname' : '', 'birth' : '', 'contract' : '', 'country' : '', 'city' : '', 'phoneibm' : '',
         'phoneperson' : '', 'mailperson' : '', 'skype' : '', 'extibm' : '', 'company' : '', 'area' : '', 'typemachine' : '', 'serialmachine' : '',
         'atyt' : '', 'conference' : '', 'card' : '', 'claim' : '', 'amex' : '', 'locker' : '', 'hourplan' : '', 'conductcourse' : '', 'hv' : '', 'hvdate' : '',
-        'avatar' : '', "active": "true" }
+        'avatar' : 'images/user_default.png', "active": "true" }
 
 
       $scope.countries  = $storage.get('countries');

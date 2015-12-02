@@ -21,7 +21,7 @@
     			<th colspan="3"><input ng-model="searchText" class="form-control" placeholder="Ingrese filtro ..." type="text"/></th>
           <th colspan="5"></th>
           <th colspan="1" class="text-center">
-            <button type="button" ng-click="create()" class="btn btn-md btn-default">
+            <button type="button" ng-click="create()" class="btn btn-md btn-default" uib-tooltip="Crear usuario">
               <i class="fa fa-plus"></i>
             </button></th>
     		</tr>
@@ -53,12 +53,16 @@
   				<td>{{row.phoneperson}}</td>
           <td>{{row.skype}}</td>
   				<td class="text-center">
-  				  <button type="button" ng-click="delete($index, row.username)" class="btn btn-sm btn-danger">
+  				  <button type="button" ng-click="delete($index, row.username)" class="btn btn-sm btn-danger" uib-tooltip="Eliminar usuario">
   					  <i class="fa fa-times"></i>
   				  </button>
-            <button type="button" ng-click="edit(row.username)" class="btn btn-sm btn-default ">
-  					  <i class="fa fa-pencil-square-o"></i>
-  				  </button>
+            <a type="button" ng-click="edittProj(row.username)" class="btn btn-sm btn-default btn-flat" uib-tooltip="Ver equipos">
+  					  <i class="fa fa-users"></i>
+  				  </a>
+            <a type="button" ng-href="#/teams-list/{{row.username}}" class="btn btn-sm btn-default btn-flat" uib-uib-tooltip="Ver lista de tareas">
+  					  <i class="fa fa-th-list"></i>
+  				  </a>
+
   				</td>
   			</tr>
   			</tbody>

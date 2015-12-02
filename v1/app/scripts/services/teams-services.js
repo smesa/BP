@@ -2,22 +2,24 @@
 
 /**
  * @ngdoc service
- * @name basekampApp.usersServices
+ * @name basekampApp.teamsServices
  * @description
- * # usersServices
+ * # teamsServices
  * Factory in the basekampApp.
  */
 angular.module('basekampApp')
-  .factory('projsServices', function ($http, $q) {
+  .factory('teamsServices', function ($http, $q) {
 
 
     // Listar
-    function list(){
+    function list(prjid){
 
       var deferred = $q.defer();
 
-      var Projects = Parse.Object.extend("Projects");
-      var query    = new Parse.Query(Projects);
+      var Teams = Parse.Object.extend("Teams");
+      var query = new Parse.Query(Teams);
+
+      query.equalTo("prjid",prjid);
 
       query.find({
         success: function(data) {
@@ -25,7 +27,7 @@ angular.module('basekampApp')
 
           angular.forEach(data,function(item){
             if(!item.avatar){
-              item.avatar = 'images/icon-project.png'
+              item.avatar = 'images/team-default-2.gif'
             }else{
               item.avatar = item.avatar
             }
@@ -34,32 +36,33 @@ angular.module('basekampApp')
           return deferred.resolve(data);
         },
         error: function(error){
-          console.log("Ocurrio el siguiente error: " + error);
           return deferred.reject(error);
         }
-      });
+      })
+
+
       return deferred.promise;
     };
 
-    function get(prjid){
+    function get(teamid){
 
       var deferred      = $q.defer();
-      var Projects      = Parse.Object.extend("Projects");
-      var queryProjects = new Parse.Query(Projects);
+      var teams         = Parse.Object.extend("Teams");
+      var query         = new Parse.Query(teams);
 
-      queryProjects.equalTo("prjid",prjid);
+      query.equalTo("teamid",teamid);
 
-      queryProjects.find({
+      query.find({
 
         success: function(projects) {
+
             var data = {};
-            data.projects = {};
-            data.projects.attributes = {};
-            data.projects.attributes = JSON.parse(JSON.stringify(projects[0]));
+            data.attributes = {};
+            data.attributes = JSON.parse(JSON.stringify(projects[0]));
 
             angular.forEach(data,function(item){
               if(!item.attributes.avatar){
-                item.attributes.avatar = 'images/icon-project.png'
+                item.attributes.avatar = 'images/team-default-2.gif'
               }else{
                 item.attributes.avatar = item.attributes.avatar
               }
@@ -69,7 +72,6 @@ angular.module('basekampApp')
 
         },
         error: function(error){
-          console.log("Ocurrio el siguiente error: " + error);
           return deferred.reject(error);
         }
       });
@@ -78,15 +80,16 @@ angular.module('basekampApp')
     };
 
 
-    function create(oParameters){
+    function create(prjid,oData){
 
       var deferred = $q.defer();
-      var Projects   = Parse.Object.extend("Projects");
+      var teams    = Parse.Object.extend("Teams");
 
-      var newProjects= new Projects();
-      newProjects.set(oParameters)
+      var newTeam = new teams();
+      newTeam.set('prjid',prjid);
+      newTeam.set(oData);
 
-      newProjects.save(null,{
+      newTeam.save(null,{
         success: function(res){
           return deferred.resolve();
         },error: function(error){
@@ -100,15 +103,15 @@ angular.module('basekampApp')
     // Actualizar proyectos
     function update(oData){
 
-      var deferred      = $q.defer();
-      var oProjects     = Parse.Object.extend("Projects");
-      var newProject    = new Parse.Query(oProjects);
+      var deferred  = $q.defer();
+      var teams     = Parse.Object.extend("teams");
+      var newTeam   = new Parse.Query(teams);
 
       // Consulto los datos actuales del proyecto
-      newProject.equalTo("prjid",oData.attributes.prjid);
+      newTeam.equalTo("teamid",oData.teamid);
 
       // consulto el proyecto
-      newProject.find({
+      newTeam.find({
         success: function(data) {
           if (data.length > 0){
 
@@ -127,15 +130,15 @@ angular.module('basekampApp')
     }
 
     // Eliminar proyectos
-    function destroy(prjid){
+    function destroy(teamid){
 
-      var deferred      = $q.defer();
-      var Projects      = Parse.Object.extend("Projects");
-      var newProject    = new Parse.Query(Projects);
+      var deferred   = $q.defer();
+      var teams      = Parse.Object.extend("Teams");
+      var newTeam    = new Parse.Query(teams);
 
-      newProject.equalTo("prjid",prjid);
+      newTeam.equalTo("teamid",teamid);
 
-      newProject.find({
+      newTeam.find({
         success: function(data) {
           if (data.length > 0){
             data[0].destroy();

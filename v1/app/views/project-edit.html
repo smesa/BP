@@ -19,6 +19,7 @@
           <div class="box box-primary">
               <br>
               <div class="box-header with-border">
+                Información general
                 <div class="pull-right">
                   <a type="button" href="#/project-list/" class="btn btn-danger "><i class="fa fa-times"></i></a>
                   <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i></button>
@@ -30,7 +31,7 @@
                       <img  ng-src="{{data.attributes.avatar}}" id="avatar" class="picture-src"/>
                       <input class="input-img" type="file" onchange="angular.element(this).scope().getAvatar(this)" accept="image/*">
                     </div>
-                    <h6>Avatar de proyecto</h6>
+                    <h6>Imagen del proyecto</h6>
                   </div>
                 <div class="form-group col-md-6">
                   <label>Código</label>
@@ -96,218 +97,8 @@
                 </div>
               </div>
           </div>
-          <div class="box box-primary" ng-show="viewteam">
-              <br>
-              <div class="box-header with-border">
-                <div class="pull-right">
-                  <button type="button" class="btn btn-primary"ng-click="addTeam()"><i class="fa fa-plus"></i></button>
-                </div>
-              </div>
-              <div class="box-body">
-                <div class="col-sm-2" ng-repeat="item in teams track by $index ">
-                  <a href="" ng-click="detailTeam(item.id)">
-                    <!-- Widget: user widget style 1 -->
-                    <div class="box box-widget widget-user" style="box-shadow: 0 1px 1px rgb(0, 0, 0);">
-                      <!-- Add the bg color to the header using any of the bg-* classes -->
-                      <div class="widget-user-header bg-aqua-active">
-                        <h3 class="widget-user-username">{{item.name}}</h3>
-                        <h5 class="widget-user-desc">{{item.desc}}</h5>
-                      </div>
-                      <div class="widget-user-image">
-                        <img class="img-circle"ng-src="{{item.avatar}}" alt="User Avatar">
-                      </div>
-                      <div class="box-footer">
-                        <div class="row">
-                          <div class="col-sm-6 border-right">
-                            <div class="description-block">
-                              <h5 class="description-header">{{item.nromembers}}</h5>
-                              <span class="description-text">Miembros</span>
-                            </div><!-- /.description-block -->
-                          </div><!-- /.col -->
-                          <div class="col-sm-6">
-                            <div class="description-block">
-                              <h5 class="description-header">{{item.nrotasks}}</h5>
-                              <span class="description-text">Tareas</span>
-                            </div><!-- /.description-block -->
-                          </div><!-- /.col -->
-                        </div><!-- /.row -->
-                      </div>
-                    </div><!-- /.widget-user -->
 
-                  </a>
-                </div>
-              </div>
-          </div>
-
-          <div class="box box-primary" ng-show = "!viewteam">
-              <div class="box-header with-border">
-                Información del equipo
-                <div class="pull-right">
-                  <a type="button" href="" ng-click="detailTeamOff()" class="btn btn-danger "><i class="fa fa-times"></i></a>
-                </div>
-              </div>
-              <div class="box-body">
-                <div class="avatar form-group col-md-12 text-center">
-                  <div class="picture avatar-md text-center">
-                    <img  ng-src="{{team.avatar}}" class="picture-src"/>
-                    <input class="input-img" type="file" id="logoTeam" onchange="angular.element(this).scope().getAvatarTeam(this)" accept="image/*">
-                  </div>
-                  <h6>Avatar de equipo</h6>
-                </div>
-                <div class="form-group col-md-4">
-                  <label>Nombre de equipo</label>
-                  <input type="text" ng-model="team.name" class="form-control" placeholder="Ingrese nombre del equipo">
-                </div>
-                <div class="form-group col-md-8">
-                  <label>Descripción</label>
-                  <input type="text"ng-model="team.desc" class="form-control"placeholder="Ingrese la descripción del equipo">
-                </div>
-             </div>
-          </div>
-          <div class="box box-primary" ng-show = "!viewteam">
-              <div class="box-header with-border">
-                Miembros
-                <div class="pull-right">
-                  <a type="button" href="" ng-click="selectMemberTeam()" class="btn btn-primary "><i class="fa fa-plus"></i></a>
-                </div>
-              </div>
-              <div class="box-body">
-                <section class="content">
-                  <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped table-bordered" cellspacing="0" width="100%">
-              			<thead>
-                    <tr>
-                			<th colspan="5"><input ng-model="searchText" class="form-control" placeholder="Ingrese filtro ..." type="text"/></th>
-                      <th colspan="4"></th>
-                		</tr>
-              			<tr>
-              				<th></th>
-                      <th st-sort="userid">Id</th>
-              				<th st-sort="username">Nombre</th>
-              				<th st-sort="userlastname">Apellido</th>
-                      <th st-sort="usermailibm">Correo</th>
-                      <th st-sort="userskype">Skype</th>
-                      <th></th>
-              			</tr>
-
-              			</thead>
-              			<tbody>
-              			<tr ng-repeat=" item in team.members | filter: searchText">
-              				<td class="text-center">
-                        <div class="image">
-                          <a ng-click="editUser(item.username)" href=""><img ng-src="{{item.avatar.url}}" class="img-circle" alt="User Image" style=" width: 50px;height: 50px;"></a>
-                        </div>
-                      </td>
-              				<td><a ng-click="editUser(item.username)" href="">{{item.username}}</a></td>
-              				<td>{{item.name}}</td>
-                      <td>{{item.lastname}}</td>
-              				<td>{{item.email}}</td>
-                      <td>{{item.skype}}</td>
-              				<td class="text-center">
-                        <a class="fa fa-trash fa-lg icon-remove" href="" ng-click="deleteMemberTeam($index)"></a>
-              				</td>
-              			</tr>
-              			</tbody>
-              		</table>
-
-             </div>
-          </div>
     </form>
 
   </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
-
-<div class="modal fade" id="teamModal">
-  <div class="modal-dialog" style="margin: 300px auto;">
-    <div class="modal-content panel-default">
-      <div class="modal-header panel-heading">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title"><h1>Equipo<small> de proyecto</small></h1></h4>
-      </div>
-      <div class="modal-body">
-        <section class="content">
-            <form id="form-team" ng-submit="appendTeam()">
-              <div class="box box-primary">
-                  <div class="box-body">
-                    <div class="avatar form-group col-md-12 text-center">
-                      <div class="picture avatar-md text-center">
-                        <img  src="images/team-default-2.gif" id="avatarTeam" class="picture-src" style="background-color: rgba(31, 73, 115, 0.91);
-}"/>
-                        <input class="input-img" type="file" onchange="angular.element(this).scope().getAvatarTeam(this)" accept="image/*">
-                      </div>
-                      <h6>Avatar del equipo</h6>
-                    </div>
-                    <div class="form-group col-md-12">
-                      <label>Nombre de equipo</label>
-                      <input type="text"ng-model="team.name" class="form-control"placeholder="Ingrese el nombre del equipo de proyecto" required>
-                    </div>
-                    <div class="form-group col-md-12">
-                      <label>Descripción de equipo</label>
-                      <input type="text" ng-model="team.desc" class="form-control"placeholder="Ingrese descripción del equipo">
-                    </div>
-                  </div>
-              </div>
-
-            </form>
-        </section>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" form="form-team" class="btn btn-primary">Agregar</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-
-<div class="modal fade" id="selectMemberModal">
-  <div class="modal-dialog modal-lg" style="margin: 300px auto;">
-    <div class="modal-content panel-primary">
-      <div class="modal-header panel-heading">
-        <button type="button" class="close btn-white" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3>Agregar miembros</h3>
-      </div>
-      <div class="modal-body">
-        <section class="content">
-          <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped table-bordered" cellspacing="0" width="100%">
-      			<thead>
-            <tr>
-        			<th colspan="5"><input ng-model="searchText" class="form-control" placeholder="Ingrese filtro ..." type="text"/></th>
-              <th colspan="4"></th>
-        		</tr>
-      			<tr>
-      				<th></th>
-              <th st-sort="userid">Id</th>
-      				<th st-sort="username">Nombre</th>
-      				<th st-sort="userlastname">Apellido</th>
-              <th st-sort="usermailibm">Correo</th>
-              <th st-sort="userskype">Skype</th>
-              <th></th>
-      			</tr>
-
-      			</thead>
-      			<tbody>
-      			<tr ng-repeat="row in  members | filter: searchText">
-      				<td class="text-center">
-                <div class="image">
-                  <a ng-click="editUser(row.username)" href=""><img ng-src="{{row.avatar.url}}" class="img-circle" alt="User Image" style=" width: 50px;height: 50px;"></a>
-                </div>
-              </td>
-      				<td><a ng-click="editUser(row.username)" href="">{{row.username}}</a></td>
-      				<td>{{row.name}}</td>
-              <td>{{row.lastname}}</td>
-      				<td>{{row.email}}</td>
-              <td>{{row.skype}}</td>
-      				<td class="text-center">
-      				  <input type="checkbox" ng-model="row.mark">
-      				</td>
-      			</tr>
-      			</tbody>
-      		</table>
-
-        </section>
-      </div>
-      <div class="modal-footer">
-        <button type="button" form="curse" class="btn btn-primary" ng-click="addMemberTeam()">Agregar</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
