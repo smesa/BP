@@ -23,7 +23,7 @@ angular.module('basekampApp')
 
           angular.forEach(data,function(item){
             if(!item.avatar){
-              item.avatar = 'images/user_default.png'
+              item.avatar = 'images/users-default.png'
             }else{
               item.avatar = item.avatar
             }
@@ -63,13 +63,12 @@ angular.module('basekampApp')
               data.userinfo.attributes = JSON.parse(JSON.stringify(userinfo[0]));
               data.useredu  = useredu;
 
-              angular.forEach(data,function(item){
-                if(!item.attributes.avatar){
-                  item.attributes.avatar = 'images/user_default.png'
-                }else{
-                  item.attributes.avatar = item.attributes.avatar
-                }
-              })
+              if(!data.userinfo.attributes.avatar){
+                data.userinfo.attributes.avatar = 'images/users-default.png'
+              }else{
+                data.userinfo.attributes.avatar = data.userinfo.attributes.avatar
+              }
+
 
               return deferred.resolve(data);
             }
@@ -150,6 +149,7 @@ angular.module('basekampApp')
         success: function(userinfo) {
           if (userinfo.length > 0){
             userinfo[0].set(info.attributes);
+            //userinfo[0].set('avatar',info.attributes.avatar)
             userinfo[0].save();
           }
         }
