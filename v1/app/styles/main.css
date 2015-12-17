@@ -11,7 +11,32 @@ html {
   -webkit-text-size-adjust: 100%; }
 
 body {
-  margin: 0; }
+  margin: 0;
+ /*line-height: 0 !important;*/
+}
+
+.navbar {
+    /*position: relative;
+    padding: 0 !important;*/
+}
+
+.ngdialog.ngdialog-theme-plain.custom-width .ngdialog-content {
+    width: 42% !important;
+}
+
+/* Custom, iPhone Retina */
+@media screen and (max-width : 320px) {
+  .ngdialog.ngdialog-theme-plain.custom-width .ngdialog-content {
+      width: 100% !important;
+  }
+}
+
+/* Extra Small Devices, Phones */
+@media screen and (max-width : 480px) {
+  .ngdialog.ngdialog-theme-plain.custom-width .ngdialog-content {
+      width: 100% !important;
+  }
+}
 
 article,
 aside,

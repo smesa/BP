@@ -3,16 +3,20 @@
       <br>
       <div class="box box-primary">
           <div class="box-header with-border">
-            Nuevo proyecto
+            Nuevo equipo
           </div>
           <div class="box-body">
             <div class="form-group col-md-12">
-              <label>Código</label>
-              <input type="text" ng-model="data.prjid" class="form-control"placeholder="Ingrese el WI del proyecto" required>
+              <label>Proyecto</label>
+              <input type="text" ng-model="data.proj" class="form-control col-sm-1" readonly>
             </div>
             <div class="form-group col-md-12">
-              <label>Nombre del proyecto</label>
-              <input type="text"ng-model="data.name" class="form-control"placeholder="Ingrese el nombre del proyecto" required>
+              <label>Nombre del Equipo</label>
+              <input type="text"ng-model="data.name" class="form-control"placeholder="Ingrese el nombre del equipo" required>
+            </div>
+            <div class="form-group col-md-12">
+              <label>Descripción del Equipo</label>
+              <textarea type="text"ng-model="data.desc" class="form-control"placeholder="Ingrese una descripción del equipo"></textarea>
             </div>
           </div>
           <div class="overlay" ng-show="overlay">

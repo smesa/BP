@@ -20,8 +20,8 @@
           <div class="box-header with-border">
             Datos básicos
             <div class="pull-right">
-              <a type="button" href="#/user-list/" class="btn btn-danger "><i class="fa fa-times"></i></a>
-              <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i></button>
+              <a type="button" href="#/user-list/" class="btn btn-danger btn-flat"><i class="fa fa-times"></i></a>
+              <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-floppy-o"></i></button>
             </div>
           </div>
           <div class="box-body">
@@ -59,7 +59,7 @@
                 <div class="input-group-addon">
                   <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" ng-model="data.birth" class="form-control dateinput" placeholder="Ingrese la fecha de nacimiento" required>
+                <input type="text" ng-model="data.birth" class="form-control dateinput" placeholder="Ingrese la fecha de nacimiento" >
               </div><!-- /.input group -->
             </div>
             <div class="form-group col-md-6">
@@ -68,7 +68,7 @@
                 <div class="input-group-addon">
                   <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" ng-model="data.contract" class="form-control dateinput" placeholder="Ingrese la fecha de ingreso" required>
+                <input type="text" ng-model="data.contract" class="form-control dateinput" placeholder="Ingrese la fecha de ingreso" >
               </div><!-- /.input group -->
             </div>
             <div class="form-group col-md-6">
@@ -280,8 +280,8 @@
               <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             </div><!-- /.box-tools -->
           </div>
-          <div class="box-body">
-            <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped table-bordered" cellspacing="0" width="100%">
+          <div class="box-body table-responsive">
+            <table class="table table-bordered table-condensed">
               <thead>
               <tr>
                 <th>Tipo de curso</th>
@@ -289,7 +289,7 @@
                 <th>Id de titulo</th>
                 <th>Fecha</th>
                 <th class="text-center">
-                  <button type="button" ng-click="addEducation()" class="btn btn-primary">
+                  <button type="button" ng-click="addEducation()" class="btn btn-sm btn-primary btn-flat">
                     <i class="fa fa-plus"></i>
                   </button>
                 </th>
@@ -303,7 +303,7 @@
                 <td>{{row.cursecertificateid}}</td>
                 <td>{{row.cursedate}}</td>
                 <td class="text-center">
-                  <button type="button" ng-click="removeCurse($index)" class="btn btn-sm btn-danger">
+                  <button type="button" ng-click="removeCurse($index)" class="btn btn-sm btn-danger btn-flat">
                     <i class="fa fa-times"></i>
                   </button>
                 </td>
@@ -366,7 +366,7 @@
         </section>
       </div>
       <div class="modal-footer">
-        <button type="submit" form="curse" class="btn btn-primary">Agregar</button>
+        <button type="submit" form="curse" class="btn btn-primary btn-flat">Agregar</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

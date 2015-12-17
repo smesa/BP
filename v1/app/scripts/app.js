@@ -67,6 +67,21 @@ angular
         templateUrl: 'views/tasks-list.html',
         controller: 'TasksListCtrl'
       })
+      .when('/teams-create', {
+        templateUrl: 'views/teams-create.html',
+        controller: 'TeamsCreateCtrl',
+        controllerAs: 'teamsCreate'
+      })
+      .when('/teams-edit/:team_id', {
+        templateUrl: 'views/teams-edit.html',
+        controller: 'TeamsEditCtrl',
+        controllerAs: 'teamsEdit'
+      })
+      .when('/members-list/:prj_id/:team_id', {
+        templateUrl: 'views/members-list.html',
+        controller: 'MembersListCtrl',
+        controllerAs: 'membersList'
+      })
       .otherwise({
         redirectTo: '/'
       });

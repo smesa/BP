@@ -8,53 +8,73 @@
     </h1>
     <ol class="breadcrumb">
       <li><a href="#/"><i class="fa fa-edit"></i> Administración</a></li>
+      <li><a href="#/project-list"><i class="fa fa-product-hunt"></i> Proyectos</a></li>
       <li class="active">Equipos</li>
     </ol>
   </section>
 
   <!-- Main content -->
   <section class="content">
-    <div class="box box-primary">
-      <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <div class="box box-primary table-responsive">
+      <div class="overlay" ng-show="overlay">
+          <i class="fa fa-refresh fa-spin"></i>
+      </div>
+      <table class="table table-bordered table-condensed">
   			<thead>
         <tr>
-    			<th colspan="3"><input ng-model="searchText" class="form-control" placeholder="Ingrese filtro ..." type="text"/></th>
-          <th colspan="3"></th>
+    			<th colspan="12"><input ng-model="searchText" class="form-control" placeholder="Ingrese filtro ..." type="text"/></th>
+    		</tr>
+  			<tr>
+  				<th class="visible-lg visible-md"></th>
+          <th >Nombre</th>
+  				<th >Descripción</th>
+  				<th class="text-center visible-lg visible-md" >Nro. Miembros</th>
+          <th class="text-center visible-lg visible-md" >Nro. Tareas</th>
           <th colspan="1" class="text-center">
             <button type="button" ng-click="create()" class="btn btn-sm btn-primary btn-flat" uib-tooltip="Crear equipo de proyecto">
               <i class="fa fa-plus"></i>
             </button>
+            <!--<button type="button" ng-click="viewList = !viewList" ng-show="viewList" class="btn btn-sm btn-default btn-flat" uib-tooltip="Ver lista">
+              <i class="fa fa-th-list"></i>
+            </button>
+            <button type="button" ng-click="viewList = !viewList" ng-hide="viewList" class="btn btn-sm btn-default btn-flat" uib-tooltip="Ver tarjetas">
+              <i class="fa fa-th"></i>
+            </button>-->
           </th>
-    		</tr>
-  			<tr>
-  				<th></th>
-          <th >Nombre</th>
-  				<th >Descripción</th>
-  				<th >Miembros</th>
-          <th >Tareas</th>
-          <th></th>
   			</tr>
 
   			</thead>
   			<tbody>
-  			<tr ng-repeat="row in  rowCollection | filter:searchText">
-  				<td class="text-center">
+  			<tr ng-repeat="row in rowCollection | filter:searchText">
+  				<td class="text-center visible-lg visible-md">
             <div class="image">
-              <a ng-click="edit(row.teamid)" href=""><img ng-src="{{row.avatar}}" class="img-circle" alt="User Image" style=" width: 50px;height: 50px;"></a>
+              <a ng-click="edit(row.teamid)" href=""><img ng-src="{{row.avatar.url}}" class="img-thumbnail" alt="User Image" style=" width: 50px;height: 50px;"></a>
             </div>
           </td>
   				<td><a ng-click="edit(row.teamid)" href="">{{row.name}}</a></td>
   				<td>{{row.desc}}</td>
-          <td>{{row.members}}</td>
-  				<td>{{row.tasks}}</td>
+          <td class="text-center visible-lg visible-md">
+            <a ng-href="#/members-list/{{row.prjid}}/{{row.teamid}}" uib-tooltip="Ver miembros del equipo">
+              <span class="badge bg-light-blue">
+                  {{row.members}}
+              </span>
+            </a>
+          </td>
+  				<td class="text-center visible-lg visible-md">
+            <a ng-href="#/tasks-list/{{row.prjid}}/{{row.teamid}}" uib-tooltip="Ver tareas del equipo">
+              <span class="badge bg-green">{{row.tasks}}</span>
+            </a>
+          </td>
   				<td class="text-center">
-  				  <button type="button" ng-click="delete(row.prjid, $index)" class="btn btn-sm btn-danger btn-flat" uib-tooltip="Eliminar proyecto">
+  				  <button type="button" ng-click="delete(row.teamid, $index)" class="btn btn-sm btn-danger btn-flat" uib-tooltip="Eliminar equipo">
   					  <i class="fa fa-times"></i>
   				  </button>
-            <a type="button" ng-href="#/tasks-list/{{row.prjid}}" class="btn btn-sm btn-default btn-flat" uib-uib-tooltip="Ver lista de tareas">
-  					  <i class="fa fa-th-list"></i>
+            <a type="button" ng-href="#/members-list/{{row.prjid}}/{{row.teamid}}" class="btn btn-sm btn-default btn-flat" uib-tooltip="Ver miembros del equipo">
+              <i class="fa fa-users"></i>
+            </a>
+            <a type="button" ng-href="#/tasks-list/{{row.prjid}}/{{row.teamid}}" class="btn btn-sm btn-default btn-flat" uib-tooltip="Ver lista de tareas">
+  					  <i class="fa fa-flag"></i>
   				  </a>
-
   				</td>
   			</tr>
   			</tbody>

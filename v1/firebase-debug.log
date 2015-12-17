@@ -1,0 +1,34 @@
+[debug] ----------------------------------------------------------------------
+[debug] Command:      C:\Program Files (x86)\nodejs\node.exe C:\Users\sergio\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase deploy
+[debug] Platform:     win32
+[debug] Node Version: v4.2.2
+[debug] Time:         Thu Dec 17 2015 08:45:49 GMT-0500 (Hora est. Pacífico, Sudamérica)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/firebase/ibm-basekamp/token?token=XXX 
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/firebase/ibm-basekamp/token?token=XXX 
+[debug] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'ibm-basekamp'...
+[info] 
+[info] i  deploying hosting
+[info] i  preparing app directory for upload...
+[debug] >>> HTTP REQUEST PUT https://deploy.firebase.com/firebase/ibm-basekamp/uploads/-K5kB7kZ9eXYJM8x8fp-?token=XXX&fileCount=545&message= 
+[debug] ----------------------------------------------------------------------
+[debug] Command:      C:\Program Files (x86)\nodejs\node.exe C:\Users\sergio\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase deploy
+[debug] Platform:     win32
+[debug] Node Version: v4.2.2
+[debug] Time:         Thu Dec 17 2015 11:36:43 GMT-0500 (Hora est. Pacífico, Sudamérica)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/firebase/ibm-basekamp/token?token=XXX 
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/firebase/ibm-basekamp/token?token=XXX 
+[debug] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'ibm-basekamp'...
+[info] 
+[info] i  deploying hosting
+[info] i  preparing app directory for upload...
+[debug] >>> HTTP REQUEST PUT https://deploy.firebase.com/firebase/ibm-basekamp/uploads/-K5knFw1ELxkCxLEr170?token=XXX&fileCount=545&message= 

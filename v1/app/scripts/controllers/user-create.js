@@ -8,8 +8,8 @@
  * Controller of the basekampApp
  */
 angular.module('basekampApp')
-  .controller('UserCreateCtrl',['$scope','$rootScope','localStorageService','usersServices',
-    function ($scope,$rootScope,$storage,$users) {
+  .controller('UserCreateCtrl',['$scope','$rootScope','localStorageService','usersServices','parseUtils',
+    function ($scope,$rootScope,$storage,$users,$utils) {
 
       $scope.data = { 'username' : '', 'email' : '', 'name' : '', 'lastname' : '', 'birth' : '', 'contract' : '', 'country' : '', 'city' : '', 'phoneibm' : '',
         'phoneperson' : '', 'mailperson' : '', 'skype' : '', 'extibm' : '', 'company' : '', 'area' : '', 'typemachine' : '', 'serialmachine' : '',
@@ -30,9 +30,7 @@ angular.module('basekampApp')
 
         $scope.data.email = $scope.email
         $users.create($scope.data, $scope.data.email, $scope.education).then(function(data){
-          bootbox.alert('Usuario creado con exito' , function() {});
           location.href = '#/user-list/';
-
         });
       }
 
@@ -49,7 +47,7 @@ angular.module('basekampApp')
 
       $scope.removeCurse = function(index){
 
-        bootbox.confirm("Esta seguro de eliminar el curso?", function(result) {
+        bootbox.confirm("¿Esta seguro de eliminar el curso?", function(result) {
            if(result == true){
               $scope.education.splice(index,1);
               $scope.$apply();
@@ -64,8 +62,10 @@ angular.module('basekampApp')
 
         // Registro el evento onload
         reader.onload = function (loadEvent) {
-          // Muevo el valor de la imagen en base 64
-          $scope.data.avatar = loadEvent.target.result;
+
+          $utils.createImage(loadEvent.target.result).then(function(file){
+            $scope.data.avatar = file;
+          });
           // Actualizo el logo
           $('#avatar').attr('src', loadEvent.target.result);
         };

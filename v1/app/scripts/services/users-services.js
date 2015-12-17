@@ -25,7 +25,7 @@ angular.module('basekampApp')
             if(!item.avatar){
               item.avatar = 'images/users-default.png'
             }else{
-              item.avatar = item.avatar
+              item.avatar = item.avatar.url
             }
           })
 
@@ -33,7 +33,7 @@ angular.module('basekampApp')
           return deferred.resolve(data);
         },
         error: function(error){
-          console.log("Ocurrio el siguiente error: " + error);
+          AlertJS.Notify.Error("Error",error.message);
           return deferred.reject(error);
         }
       });
@@ -64,7 +64,7 @@ angular.module('basekampApp')
               data.useredu  = useredu;
 
               if(!data.userinfo.attributes.avatar){
-                data.userinfo.attributes.avatar = 'images/users-default.png'
+                data.userinfo.attributes.avatar = {'url':'images/users-default.png'}
               }else{
                 data.userinfo.attributes.avatar = data.userinfo.attributes.avatar
               }
@@ -76,7 +76,7 @@ angular.module('basekampApp')
 
         },
         error: function(error){
-          console.log("Ocurrio el siguiente error: " + error);
+          AlertJS.Notify.Error("Error",error.message);
           return deferred.reject(error);
         }
       });
@@ -117,10 +117,11 @@ angular.module('basekampApp')
         success: function(res){
           newUserInfo.save() // Guarda datos de info
           Parse.Object.saveAll(ArrEdu); // Guarda educación
+          AlertJS.Notify.Success("Atención","Usuario creado exitosamente");
           return deferred.resolve();
 
       },error: function(user,error){
-        alert("Error: " + error.code + " " + error.message);
+        AlertJS.Notify.Error("Error",error.message);
         return deferred.reject(error);
       }})
 
@@ -149,7 +150,7 @@ angular.module('basekampApp')
         success: function(userinfo) {
           if (userinfo.length > 0){
             userinfo[0].set(info.attributes);
-            //userinfo[0].set('avatar',info.attributes.avatar)
+            userinfo[0].set('avatar',info.attributes.avatar)
             userinfo[0].save();
           }
         }
@@ -171,9 +172,11 @@ angular.module('basekampApp')
           })
 
           Parse.Object.saveAll(ArrEdu);
+          AlertJS.Notify.Success("Atención","Usuario actualizado exitosamente");
           return deferred.resolve();
         },
-        error: function(){
+        error: function(error){
+          AlertJS.Notify.Error("Error",error.message);
           return deferred.resolve();
         }
       });
@@ -208,9 +211,11 @@ angular.module('basekampApp')
           angular.forEach(useredu, function(value){
             value.destroy();
           })
+          AlertJS.Notify.Success("Atención","Usuario eliminado exitosamente");
           return deferred.resolve();
         },
-        error: function(){
+        error: function(error){
+          AlertJS.Notify.Error("Error",error.message);
           return deferred.resolve();
         }
       });

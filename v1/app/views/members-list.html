@@ -1,0 +1,95 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+
+
+  <section class="content-header">
+    <h1>
+      Listado miembros
+      <small> de equipo</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="#/"><i class="fa fa-edit"></i> Administración</a></li>
+      <li><a href="#/project-list">Proyectos</a></li>
+      <li><a href="#/teams-list/{{prj_id}}">Equipos</a></li>
+      <li class="active">Miembros</li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="box box-primary">
+
+      <div class="overlay" ng-show="overlay">
+          <i class="fa fa-refresh fa-spin"></i>
+      </div>
+
+      <table class="table table-bordered table-condensed">
+        <thead>
+          <tr>
+            <th>
+              <div class="col-lg-12">
+                <div class="input-group">
+                  <input ng-model="searchText" class="form-control" placeholder="Ingrese filtro ..." type="text">
+                  <span class="input-group-btn">
+                    <button ng-click="addMembers()" class="btn btn-sm btn-primary btn-flat" type="button" uib-tooltip="Agregar miembros">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                    <button ng-click="loadMembers()" class="btn btn-sm btn-success btn-flat" type="button" uib-tooltip="Agregar miembros">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                  </span>
+                </div><!-- /input-group -->
+              </div><!-- /.col-lg-6 -->
+
+            </th>
+          </tr>
+        </thead>
+      </table>
+
+     <div class="row">
+
+       <div class="col-xs-12 col-md-2" ng-repeat="row in  rowCollection | filter: searchText">
+         <div class="card-container"  >
+            <div class="card">
+                <div class="front">
+                    <div class="cover">
+                        <!--<img src="vendors/cards/images/rotating_card_thumb.png"/>-->
+                    </div>
+                    <div class="user">
+                        <img class="img-circle" ng-src="{{row.avatar}}"/>
+                    </div>
+                    <div class="content">
+                        <div class="main">
+                            <h4 class="name"><b>{{row.name}}</b></h4>
+                            <p class="profession">{{row.lastname}}</p>
+                        </div>
+                    </div>
+                </div> <!-- end front panel -->
+                <div class="back">
+                    <div class="content">
+                        <div class="main">
+                            <p class="text-center"><b>Correo</b></span>
+                            <h4 class="text-center">{{row.email}}</h4>
+                            <p class="text-center"><b>Teléfono</b></span>
+                            <p class="text-center">{{row.phoneperson}}</p>
+                            <p class="text-center"><b>Skype</b></span>
+                            <h4 class="text-center">{{row.skype}}</h4>
+                        </div>
+                        <div class="footer">
+                          <button type="button" ng-click="removeMembers(row.username)" class="btn btn-flat btn-sm btn-danger" uib-tooltip="Eliminar miembro">
+                              <i class="fa fa-times"></i>
+                          </button>
+                        </div>
+                    </div>
+                </div> <!-- end back panel -->
+            </div> <!-- end card -->
+        </div> <!-- end card-container -->
+
+       </div>
+     </div>
+
+    </div>
+
+  </section><!-- /.content -->
+</div><!-- /.content-wrapper -->

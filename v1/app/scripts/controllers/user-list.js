@@ -11,9 +11,12 @@ angular.module('basekampApp')
   .controller('UserListCtrl',['$scope','$rootScope','usersServices', function ($scope,$rootScope, $users) {
 
    $scope.rowCollection = [];
+   $scope.viewList = true;
+   $scope.overlay = true;
 
     // Consulto usuarios
     $users.list().then(function(data){
+       $scope.overlay = false;
        $scope.rowCollection = data;
     });
 
@@ -27,14 +30,14 @@ angular.module('basekampApp')
 
     $scope.delete = function(index,username){
 
-      bootbox.confirm("Esta seguro de eliminar el usuario?", function(result) {
+      bootbox.confirm("¿Esta seguro de eliminar el usuario?", function(result) {
 
          if(result == true){
-
+             $scope.overlay = true;
              $users.destroy(username).then(function(data){
-             // Extraigo el mensaje
-             $scope.rowCollection.splice(index, 1);
-             bootbox.alert('Usuario eliminado' , function() {});
+               $scope.overlay = false;
+               // Extraigo el mensaje
+               $scope.rowCollection.splice(index, 1);
 
            });
          }

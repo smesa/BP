@@ -8,8 +8,8 @@
  * Controller of the basekampApp
  */
 angular.module('basekampApp')
-  .controller('UserEditCtrl',['$scope','$rootScope','$routeParams','localStorageService','usersServices',
-    function ($scope,$rootScope,$routeParams,$storage,$users) {
+  .controller('UserEditCtrl',['$scope','$rootScope','$routeParams','localStorageService','usersServices','parseUtils',
+    function ($scope,$rootScope,$routeParams,$storage,$users,$utils) {
 
     var user_id = $routeParams.user_id;
 
@@ -19,9 +19,11 @@ angular.module('basekampApp')
     $scope.data = [];
     $scope.useredu = [];
     $scope.curso = [];
+    $scope.overlay = true;
 
     // Consulto usuarios
     $users.get(user_id).then(function(data){
+          $scope.overlay = false;
           $scope.userinfo = data.userinfo;
           $scope.useredu  = data.useredu;
           $('#avatar').attr('src', $scope.userinfo.attributes.avatar);
@@ -31,10 +33,11 @@ angular.module('basekampApp')
     $scope.save = function(){
 
 
-      bootbox.confirm("Esta seguro de guardar estos cambios?", function(result) {
+      bootbox.confirm("¿Esta seguro de guardar estos cambios?", function(result) {
          if(result == true){
+           $scope.overlay = true;
             $users.update($scope.userinfo,$scope.useredu).then(function(data){
-              bootbox.alert('Datos de usuario guardados' , function() {});
+              $scope.overlay = false;
               location.href = '#/user-list/';
             });
          }
@@ -47,19 +50,23 @@ angular.module('basekampApp')
     }
 
     $scope.addCurse = function(){
+      $scope.overlay = true;
       var values = {};
       values.attributes =  $scope.curso;
       $scope.curso = [];
       $scope.useredu.push(values);
+      $scope.overlay = false;
       $('#educationModal').modal('hide');
     }
 
     $scope.removeCurse = function(index){
 
-      bootbox.confirm("Esta seguro de eliminar el curso?", function(result) {
+      bootbox.confirm("¿Esta seguro de eliminar el curso?", function(result) {
          if(result == true){
+            $scope.overlay = true;
             $scope.useredu.splice(index,1);
             $scope.$apply();
+            $scope.overlay = false;
          }
       });
     }
@@ -72,8 +79,11 @@ angular.module('basekampApp')
 
       // Registro el evento onload
       reader.onload = function (loadEvent) {
-        // Muevo el valor de la imagen en base 64
-        $scope.userinfo.attributes.avatar = loadEvent.target.result;
+
+        $utils.createImage(loadEvent.target.result).then(function(file){
+          $scope.userinfo.attributes.avatar = file;
+        });
+
         // Actualizo el logo
         $('#avatar').attr('src', loadEvent.target.result);
       };

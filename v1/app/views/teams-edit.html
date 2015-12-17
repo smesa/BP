@@ -1,0 +1,56 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Edición
+      <small> equipo de proyecto</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="#/"><i class="fa fa-edit"></i> Administración</a></li>
+      <li><a href="#/project-list">Proyectos</a></li>
+      <li><a ng-href="#/teams-list/{{proj_id}}">Equipos</a></li>
+      <li class="active">Edición</a></li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <form ng-submit="save()">
+          <div class="box box-primary">
+            <div class="overlay" ng-show="overlay">
+                <i class="fa fa-refresh fa-spin"></i>
+            </div>
+              <br>
+              <div class="box-header with-border">
+                Información general
+                <div class="pull-right">
+                  <a type="button" ng-href="#/teams-list/{{proj_id}}" class="btn btn-danger btn-flat btn-sm "><i class="fa fa-times"></i></a>
+                  <button type="submit" class="btn btn-primary btn-flat btn-sm"><i class="fa fa-floppy-o"></i></button>
+                </div>
+              </div>
+              <div class="box-body">
+                  <div class="avatar form-group col-md-12 text-center">
+                    <div class="picture avatar-md text-center">
+                      <img id="avatar" class="picture-src"/>
+                      <input class="input-img" type="file" onchange="angular.element(this).scope().getAvatar(this)" accept="image/*">
+                    </div>
+                    <h6>Imagen del equipo</h6>
+                  </div>
+                <div class="form-group col-md-6">
+                  <label>Código</label>
+                  <input type="text" ng-model="data.attributes.prjid" class="form-control"placeholder="Ingrese el WI del proyecto" required readonly>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Nombre del equipo</label>
+                  <input type="text"ng-model="data.attributes.name" class="form-control"placeholder="Ingrese el nombre del proyecto" required>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Descripción</label>
+                  <textarea type="text" ng-model="data.attributes.desc" rows="4" class="form-control" placeholder="Ingrese la descripción del proyecto"></textarea>
+                </div>
+          </div>
+    </form>
+  </section><!-- /.content -->
+
+</div><!-- /.content-wrapper -->

@@ -9,9 +9,7 @@
  */
 angular.module('basekampApp')
   .controller('TasksListCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+
+    
+
   });

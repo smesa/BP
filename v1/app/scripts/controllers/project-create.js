@@ -8,24 +8,24 @@
  * Controller of the basekampApp
  */
 angular.module('basekampApp')
-  .controller('ProjectCreateCtrl',['$scope', '$rootScope', 'localStorageService', 'projsServices', 'ngDialog',
-    function ($scope, $rootScope, $storage, $projects, ngDialog) {
+  .controller('ProjectCreateCtrl',['$scope', '$rootScope', 'localStorageService', 'projsServices', 'ngDialog', 'parseUtils',
+    function ($scope, $rootScope, $storage, $projects, ngDialog, parseUtils) {
 
 
-    $scope.data = {  'prjid' : '', 'name' : ''}
+    $scope.data = {  'prjid' : '', 'name' : '', 'desc':'', 'compo':'', 'init':'', 'end': '', 'locale':'', 'current':'','type':''}
     $scope.overlay = false;
-
+    
     $scope.save = function(){
 
       $scope.overlay = !$scope.overlay;
 
-      $projects.create($scope.data).then(function(data){
-        ngDialog.close();
-        $scope.overlay = !$scope.overlay;
-        AlertJS.Notify.Success("Atención","Proyecto creado exitosamente");
-        location.href = '#/project-edit/'+$scope.data.prjid;
-      },function(reason) {
-        AlertJS.Notify.error("Atención", "Error creando el proyecto");
+      parseUtils.fileUrl('images/icon-project.png').then(function(file) {
+        $scope.data.avatar = file;
+        $projects.create($scope.data).then(function(data){
+          ngDialog.close();
+          $scope.overlay = !$scope.overlay;
+          location.href = '#/project-edit/'+$scope.data.prjid;
+        });
       });
     }
 

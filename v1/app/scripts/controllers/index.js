@@ -8,13 +8,34 @@
  * Controller of the basekampApp
  */
 angular.module('basekampApp')
-  .controller('IndexCtrl', function ($scope,$rootScope,parseUtils) {
+  .controller('IndexCtrl',['$scope','$rootScope','parseUtils','usersServices','projsServices',
+    function ($scope,$rootScope,parseUtils,$users,$proj) {
+
+    $scope.isError = false;
 
     // Valido usuario logueado
     parseUtils.activeUser().then(function(user) {
       if(user){
         $scope.isLogon = false
-        $scope.data = user.attributes;        
+        //$scope.data = user.attributes;
+
+        $users.get(user.attributes.username).then(function(user){
+          $scope.data = user.userinfo.attributes;
+
+          // Consulto nro de proyectos
+          $proj.countByUser($scope.data.username).then(function(data){
+
+          },function(error){
+
+          });
+          // Consulto los mensajes que tiene
+
+          // Consulto las notificaciones que tiene
+
+          // Consulto tareas nuevas
+
+        })
+
       }else{
         $scope.isLogon = true;
       }
@@ -36,7 +57,8 @@ angular.module('basekampApp')
           $scope.$apply();
         },
         error: function(user, error) {
-            bootbox.alert('El usuario o la contraseña son invalidos' , function() {});
+          $scope.isError = true;
+          $scope.$apply();
         }
 
       })
@@ -50,4 +72,4 @@ angular.module('basekampApp')
 
 
 
-  });
+  }]);

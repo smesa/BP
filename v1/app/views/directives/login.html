@@ -19,18 +19,22 @@
                       </div>
                       </div>
                       <div class="form-bottom">
-                    <form name="logonForm" role="form" ng-submit="login()" class="login-form">
-                      <div class="form-group">
-                        <label class="sr-only" for="form-username">Usuario</label>
-                          <input type="text" name="form-username" placeholder="Usuario..." class="form-username form-control input-logon" id="form-username" required ng-model="username">
+                        <div ng-show="isError" class="alert alert-danger alert-dismissable">
+                              <h4><i class="icon fa fa-ban"></i> Autenticación fallida!</h4>
+                              Por favor verifique el usuario y la contraseña ingresados
                         </div>
-                        <div class="form-group">
-                          <label class="sr-only" for="form-password">Contraseña</label>
-                          <input type="password" name="form-password" placeholder="Contraseña..." class="form-password form-control input-logon" id="form-password" ng-model="userpass" required>
-                        </div>
-                        <button type="submit" class="btn btn-logon btn-primary">Ingresar</button>
-                    </form>
-                  </div>
+                        <form name="logonForm" role="form" ng-submit="login()" class="login-form">
+                          <div class="form-group">
+                            <label class="sr-only" for="form-username">Usuario</label>
+                              <input type="text" name="form-username" placeholder="Usuario..." class="form-username form-control input-logon" id="form-username" required ng-model="username">
+                            </div>
+                            <div class="form-group">
+                              <label class="sr-only" for="form-password">Contraseña</label>
+                              <input type="password" name="form-password" placeholder="Contraseña..." class="form-password form-control input-logon" id="form-password" ng-model="userpass" required>
+                            </div>
+                            <button type="submit" class="btn btn-logon btn-primary">Ingresar</button>
+                        </form>
+                    </div>
                   </div>
               </div>
           </div>
