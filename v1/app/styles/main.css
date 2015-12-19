@@ -20,6 +20,13 @@ body {
     padding: 0 !important;*/
 }
 
+.icon-card {
+    margin-left: .3em;
+    padding: 20px;
+    font-size: 1.6em !important;
+    color: yellow;
+}
+
 .ngdialog.ngdialog-theme-plain.custom-width .ngdialog-content {
     width: 42% !important;
 }

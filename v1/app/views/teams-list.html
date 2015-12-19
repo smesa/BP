@@ -30,7 +30,7 @@
   				<th >Descripción</th>
   				<th class="text-center visible-lg visible-md" >Nro. Miembros</th>
           <th class="text-center visible-lg visible-md" >Nro. Tareas</th>
-          <th colspan="1" class="text-center">
+          <th class="text-center">
             <button type="button" ng-click="create()" class="btn btn-sm btn-primary btn-flat" uib-tooltip="Crear equipo de proyecto">
               <i class="fa fa-plus"></i>
             </button>
@@ -69,12 +69,7 @@
   				  <button type="button" ng-click="delete(row.teamid, $index)" class="btn btn-sm btn-danger btn-flat" uib-tooltip="Eliminar equipo">
   					  <i class="fa fa-times"></i>
   				  </button>
-            <a type="button" ng-href="#/members-list/{{row.prjid}}/{{row.teamid}}" class="btn btn-sm btn-default btn-flat" uib-tooltip="Ver miembros del equipo">
-              <i class="fa fa-users"></i>
-            </a>
-            <a type="button" ng-href="#/tasks-list/{{row.prjid}}/{{row.teamid}}" class="btn btn-sm btn-default btn-flat" uib-tooltip="Ver lista de tareas">
-  					  <i class="fa fa-flag"></i>
-  				  </a>
+
   				</td>
   			</tr>
   			</tbody>

@@ -37,6 +37,14 @@ angular.module('basekampApp')
         });
       }
 
+      $scope.setLeader = function(username,option){
+        option = !option;
+        $members.setLeader(username,teamid,option).then(function(){
+          AlertJS.Notify.Success("Atención","Cambio de lider de equipo exitoso");
+          $scope.loadMembers();
+        });
+      }
+
       $scope.loadMembers();
 
       $scope.addMembers = function(){

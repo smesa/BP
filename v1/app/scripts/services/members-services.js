@@ -32,6 +32,7 @@ angular.module('basekampApp')
               for(i = 0; i < users.length; i++) {
 
                 if(obj.username === users[i].username){
+                  users[i].leader = obj.leader;
                   memberList.push(users[i]);
                   break;
                 }
@@ -52,6 +53,30 @@ angular.module('basekampApp')
 
 
       return deferred.promise;
+    }
+
+    function setLeader(username,teamid,option){
+      var deferred   = $q.defer();
+      var members    = Parse.Object.extend("Members");
+      var query      = new Parse.Query(members);
+
+      query.equalTo("teamid",teamid);
+      query.equalTo("username",username);
+
+      query.find({success:function(res){
+        if(res.length > 0){
+          res[0].set('leader',option);
+          res[0].save();
+          return deferred.resolve();
+        }
+      },error:function(error){
+        AlertJS.Notify.Error("Error", error.message);
+        return deferred.reject(error);
+      }})
+
+
+      return deferred.promise;
+
     }
 
     function add(memberList, teamid){
@@ -138,7 +163,8 @@ angular.module('basekampApp')
       list:list,
       add:add,
       remove:remove,
-      removeByTeam:removeByTeam
+      removeByTeam:removeByTeam,
+      setLeader:setLeader
     };
 
 

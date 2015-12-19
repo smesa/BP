@@ -49,7 +49,7 @@
 
      <div class="row">
 
-       <div class="col-xs-12 col-md-2" ng-repeat="row in  rowCollection | filter: searchText">
+       <div class="col-xs-12 col-md-4 col-lg-2" ng-repeat="row in  rowCollection | filter: searchText">
          <div class="card-container"  >
             <div class="card">
                 <div class="front">
@@ -79,6 +79,12 @@
                         <div class="footer">
                           <button type="button" ng-click="removeMembers(row.username)" class="btn btn-flat btn-sm btn-danger" uib-tooltip="Eliminar miembro">
                               <i class="fa fa-times"></i>
+                          </button>
+                          <button type="button" class="btn btn-flat btn-sm btn-default" uib-tooltip="Ver tareas">
+                              <i class="fa fa-flag"></i>
+                          </button>
+                          <button type="button" class="btn btn-flat btn-sm btn-danger" uib-tooltip="Asignar lider">
+                              <i class="fa fa-star"></i>
                           </button>
                         </div>
                     </div>

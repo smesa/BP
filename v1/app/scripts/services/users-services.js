@@ -118,6 +118,9 @@ angular.module('basekampApp')
           newUserInfo.save() // Guarda datos de info
           Parse.Object.saveAll(ArrEdu); // Guarda educación
           AlertJS.Notify.Success("Atención","Usuario creado exitosamente");
+          Parse.User.become(sessionToken).then(function (user) {
+          }, function (error) {
+          });
           return deferred.resolve();
 
       },error: function(user,error){
@@ -199,8 +202,26 @@ angular.module('basekampApp')
 
 
       queryUserInfo.find({
+
         success: function(userinfo) {
+
           if (userinfo.length > 0){
+
+            var query = new Parse.Query(Parse.User);
+            query.equalTo("username",user_id);
+
+            query.find({success:function(obj){
+              //obj[0].destroy();
+
+              /*Parse.User.become(sessionToken).then(function (user) {
+              }, function (error) {
+              });*/
+            },error:function(error){
+              AlertJS.Notify.Error("Error",error.message);
+
+              return deferred.resolve();
+            }})
+
             userinfo[0].destroy();
           }
         }
@@ -212,10 +233,12 @@ angular.module('basekampApp')
             value.destroy();
           })
           AlertJS.Notify.Success("Atención","Usuario eliminado exitosamente");
+
           return deferred.resolve();
         },
         error: function(error){
           AlertJS.Notify.Error("Error",error.message);
+
           return deferred.resolve();
         }
       });
