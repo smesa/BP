@@ -1,1 +1,64 @@
-<p>This is the tasks-list view.</p>
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Tareas
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="#/"><i class="fa fa-edit"></i> Administración</a></li>
+      <li><a href="#/project-list"><i class="fa fa-product-hunt"></i> Proyectos</a></li>
+      <li class="active">Equipos</li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="box box-primary">
+
+      <div class="box-header with-border">
+        Información general
+        <div class="pull-right">
+          <button type="submit" class="btn btn-primary btn-flat btn-sm" tooltip="Adicionar columna"><i class="fa fa-plus"></i></button>
+        </div>
+      </div>
+
+      <div class="box-body">
+
+        <div style="width:80%; margin: 20px;">
+
+            <div class="row" ng-controller="BoardCtrl">
+
+                <div ng-include="'/AppScript/busyModal.html'" ng-show="isLoading"></div>
+
+                <div class="col-lg-3 panel panel-primary colStyle board-task" id="{{col.Id}}" kanban-board-drop="over" ng-repeat="col in columns">
+                  <div class="panel-heading" style="margin-bottom: 10px;">
+                      <h3 class="panel-title pull-left">
+                        {{col.name}}
+                      </h3>
+                      <button class="btn btn-default pull-right">New</button>
+                  </div>
+
+                  <div class="thumbnail" draggable="true" kanban-board-dragg="task"
+                       ng-repeat="task in col.tasks" style="margin-bottom: 10px;">
+
+                      <div class="caption">
+                          <h5><strong>{{task.name}}</strong></h5>
+                          <p>{{task.description}}</p>
+                          <p><a href="#" class="btn btn-primary btn-sm" role="button">Editar</a></p>
+                      </div>
+
+                  </div>
+              </div>
+
+            </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+  </section><!-- /.content -->
+</div><!-- /.content-wrapper -->

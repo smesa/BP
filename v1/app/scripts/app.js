@@ -63,7 +63,7 @@ angular
         templateUrl: 'views/teams-list.html',
         controller: 'TeamsListCtrl'
       })
-      .when('/tasks-list/:prj_id', {
+      .when('/tasks-list/', {
         templateUrl: 'views/tasks-list.html',
         controller: 'TasksListCtrl'
       })
