@@ -8,6 +8,9 @@
  *
  * Main module of the application.
  */
+
+var initialized = false;
+
 angular
   .module('basekampApp', [
     'ngResource',
@@ -15,8 +18,13 @@ angular
     'smart-table',
     'LocalStorageModule',
     'ui.bootstrap',
-    'ngDialog'
+    'ngDialog',
+    'kinvey'
   ])
+  .constant('kinveyConfig', {
+    appKey: 'kid_Z1dnCghqAl',
+    appSecret: 'cee4f0c9935f4b5ab544b3b71b28a35b'
+  })
   .config(function ($routeProvider,localStorageServiceProvider) {
     $routeProvider
       .when('/', {
@@ -103,7 +111,18 @@ angular
 
     AlertJS.setSetting("sound", true);
 
-    Parse.$ = jQuery;
-    Parse.initialize("azXqupSuOSFLFgVnelWhl6x44rtScVwwvEg9Gh5c", "U4ACfj9UzW1tV8b1OxpBSmOcMntVN8YsAju6ORIg");
-
-  });
+  })
+  .run(['$kinvey', '$rootScope', '$location', 'kinveyConfig', function($kinvey, $rootScope, $location, kinveyConfig) {
+    $rootScope.$on('$locationChangeStart', function(event, newUrl) {
+        if (!initialized) {
+            //event.preventDefault(); // Stop the location change
+            // Initialize Kinvey
+            $kinvey.init(kinveyConfig).then(function() {
+                initialized = true;
+                //$location.path($location.url('/')); // Go to the page
+            }, function(err) {
+              console.log('Error en INIT: ' + err)
+            });
+        }
+    });
+  }]);

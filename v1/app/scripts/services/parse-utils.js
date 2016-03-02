@@ -8,18 +8,61 @@
  * Factory in the basekampApp.
  */
 angular.module('basekampApp')
-  .factory('parseUtils', function ($q) {
 
+  .factory('parseUtils', function ($q, $kinvey) {
+
+    var kinveyConfig =  {
+      appKey: 'kid_Z1dnCghqAl',
+      appSecret: 'cee4f0c9935f4b5ab544b3b71b28a35b'
+    }
+
+    // Obtener usuario activo
     function activeUser(){
-
       // creo deferred
       var deferred = $q.defer();
 
       // Valido usuario con session
-      var currentUser = Parse.User.current();
-      deferred.resolve(currentUser);
+      $kinvey.init(kinveyConfig).then(function() {
+        $kinvey.User.me().then(function(user) {
+          deferred.resolve(user);
+        }, function(err) {
+          return deferred.reject(err);
+        });
+      }, function(err) {
+        return deferred.reject(err);
+      });
+
+      return deferred.promise;
+    }
+
+
+    // Login de usuario
+    function login(username, userpass){
+      var deferred     = $q.defer();
+      $kinvey.User.login(username, userpass).then(function(user) {
+          deferred.resolve(user);
+      }, function(err) {
+          return deferred.reject(err);
+      });
+
       return deferred.promise;
 
+    }
+
+    function logoff(){
+      var deferred     = $q.defer();
+      var user = $kinvey.getActiveUser();
+
+      if(null !== user) {
+          var promise = $kinvey.User.logout();
+          promise.then(function() {
+              deferred.resolve();
+          }, function(err) {
+              return deferred.reject(err);
+          });
+      }
+
+      return deferred.promise;
     }
 
     function createImageFile(base64){
@@ -96,6 +139,8 @@ angular.module('basekampApp')
     // Public API here
     return {
       activeUser: activeUser,
+      login: login,
+      logoff: logoff,
       createImage:createImageFile,
       imageUrl: imageUrl,
       fileUrl: fileUrl,

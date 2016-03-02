@@ -19,15 +19,16 @@ angular.module('basekampApp')
         $scope.isLogon = false
         //$scope.data = user.attributes;
 
-        $users.get(user.attributes.username).then(function(user){
-          $scope.data = user.userinfo.attributes;
+        $users.get(user.username).then(function(user){
+
+          $scope.data = user.userinfo;
 
           // Consulto nro de proyectos
-          $proj.countByUser($scope.data.username).then(function(data){
+          /*$proj.countByUser($scope.data.username).then(function(data){
 
           },function(error){
 
-          });
+          });*/
           // Consulto los mensajes que tiene
 
           // Consulto las notificaciones que tiene
@@ -39,11 +40,21 @@ angular.module('basekampApp')
       }else{
         $scope.isLogon = true;
       }
+    },function(error){
+      $scope.isLogon = true;
     });
 
     $scope.login = function(){
 
-      Parse.User.logIn($scope.username, $scope.userpass, {
+      // Autentico usuario para ingresar
+      parseUtils.login($scope.username,$scope.userpass).then(function(user) {
+        $scope.isLogon = false
+        $scope.data = user.attributes;
+      },function(error){
+        $scope.isError = true;
+      });
+
+      /*Parse.User.logIn($scope.username, $scope.userpass, {
         success: function(user) {
 
           parseUtils.activeUser().then(function(user) {
@@ -61,13 +72,19 @@ angular.module('basekampApp')
           $scope.$apply();
         }
 
-      })
+      })*/
     }
 
     $scope.logoff = function(){
-      Parse.User.logOut();
-      $scope.isLogon = true;
-      location.href = '#/';
+      // Valido usuario logueado
+      parseUtils.logoff().then(function() {
+        $scope.isLogon = true;
+        location.href = '#/';
+      },function(){
+        location.href = '#/';
+        $scope.isLogon = false;
+      });
+
     }
 
 

@@ -7,7 +7,7 @@
  * Factory in the basekampApp.
  */
 angular.module('basekampApp')
-  .factory('usersServices', function ($http, $q, $rootScope) {
+  .factory('usersServices', function ($http, $q, $rootScope, $kinvey) {
 
 
     function list(){
@@ -41,10 +41,10 @@ angular.module('basekampApp')
 
     };
 
-    function get(user_id){
+    function get(username){
 
       var deferred      = $q.defer();
-      var UserInfo      = Parse.Object.extend("UserInfo");
+      /*var UserInfo      = Parse.Object.extend("UserInfo");
       var UserEdu       = Parse.Object.extend("UserEdu");
       var queryUserInfo = new Parse.Query(UserInfo);
       var queryUserEdu  = new Parse.Query(UserEdu);
@@ -79,6 +79,21 @@ angular.module('basekampApp')
           AlertJS.Notify.Error("Error",error.message);
           return deferred.reject(error);
         }
+      });*/
+
+      var query = new $kinvey.Query();
+      query.equalTo('username', username);
+
+      $kinvey.User.find(query).then(function(resp) {
+          if(resp.length > 0){
+            return deferred.resolve(resp[0]);
+          }else{
+            return deferred.reject();
+          }
+
+      }, function(err) {
+          AlertJS.Notify.Error("Error",err.message);
+          return deferred.reject(err);
       });
 
       return deferred.promise;

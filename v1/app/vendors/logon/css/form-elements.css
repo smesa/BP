@@ -41,3 +41,28 @@
     -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none;
     -o-transition: all .3s; -moz-transition: all .3s; -webkit-transition: all .3s; -ms-transition: all .3s; transition: all .3s;
 }
+
+.btn-register{
+	height: 50px;
+    margin: 10px 0 0 0;
+    padding: 0 20px;
+    vertical-align: middle;
+    background: #337AB7;
+    border: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 50px;
+    color: #fff;
+    -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;
+    text-shadow: none;
+    -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none;
+    -o-transition: all .3s; -moz-transition: all .3s; -webkit-transition: all .3s; -ms-transition: all .3s; transition: all .3s;
+}
+
+.btn-register:hover, .btn:focus, .btn.focus {
+    color: #f4f4f4;
+    text-decoration: none;
+    font-weight: 400;
+    background: #3c8dbc;
+}
